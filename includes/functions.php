@@ -203,38 +203,8 @@ function fill_investigation_form_by_dic($smarty, $dao){
 
 function fill_therapy_form_by_dic($smarty, $dao){
 	$smarty->assign('visit_vals', $dao->getDicValues("visit_id"));
-	$smarty->assign('chmt_karboplatin_vals', $dao->getDicValues("chmt_karboplatin_id"));
-	$smarty->assign('chmt_cisplatin_vals', $dao->getDicValues("chmt_cisplatin_id"));
-	$smarty->assign('chmt_ciklofosfan_vals', $dao->getDicValues("chmt_ciklofosfan_id"));
-	$smarty->assign('chmt_paklitaksel_vals', $dao->getDicValues("chmt_paklitaksel_id"));
-	$smarty->assign('chmt_doksorubicin_vals', $dao->getDicValues("chmt_doksorubicin_id"));
-	$smarty->assign('chmt_topotekan_vals', $dao->getDicValues("chmt_topotekan_id"));
-	$smarty->assign('chmt_gemcitabin_vals', $dao->getDicValues("chmt_gemcitabin_id"));
-	$smarty->assign('chmt_vinorelbin_vals', $dao->getDicValues("chmt_vinorelbin_id"));
-	$smarty->assign('chmt_irinotekan_vals', $dao->getDicValues("chmt_irinotekan_id"));
-	$smarty->assign('chmt_jetopozid_vals', $dao->getDicValues("chmt_jetopozid_id"));
-	$smarty->assign('chmt_jepirubicin_vals', $dao->getDicValues("chmt_jepirubicin_id"));
-	$smarty->assign('chmt_docetaksel_vals', $dao->getDicValues("chmt_docetaksel_id"));
-	$smarty->assign('chmt_oksaliplatin_vals', $dao->getDicValues("chmt_oksaliplatin_id"));
-	$smarty->assign('chmt_trabektedin_vals', $dao->getDicValues("chmt_trabektedin_id"));
-	$smarty->assign('chmt_other_vals', $dao->getDicValues("chmt_other_id"));
-	$smarty->assign('epoetin_yes_no_vals', $dao->getDicValues("epoetin_yes_no_id"));
-	$smarty->assign('epoetin_eprex40k_trfinish_yes_no_vals', $dao->getDicValues("epoetin_eprex40k_trfinish_yes_no_id"));
-	$smarty->assign('epoetin_eprex40k_trfinish_cause_vals', $dao->getDicValues("epoetin_eprex40k_trfinish_cause_id"));
-	$smarty->assign('epoetin_eprex2k5ML_trfinish_yes_no_vals', $dao->getDicValues("epoetin_eprex2k5ML_trfinish_yes_no_id"));
-	$smarty->assign('epoetin_eprex2k5ML_trfinish_cause_vals', $dao->getDicValues("epoetin_eprex2k5ML_trfinish_cause_id"));
-	$smarty->assign('epoetin_rekormon_trfinish_yes_no_vals', $dao->getDicValues("epoetin_rekormon_trfinish_yes_no_id"));
-	$smarty->assign('epoetin_rekormon_trfinish_cause_vals', $dao->getDicValues("epoetin_rekormon_trfinish_cause_id"));
-	$smarty->assign('epoetin_other_trfinish_yes_no_vals', $dao->getDicValues("epoetin_other_trfinish_yes_no_id"));
-	$smarty->assign('epoetin_other_trfinish_cause_vals', $dao->getDicValues("epoetin_other_trfinish_cause_id"));
-	$smarty->assign('ferrum_yes_no_vals', $dao->getDicValues("ferrum_yes_no_id"));
-	$smarty->assign('notepoetin_yes_no_vals', $dao->getDicValues("notepoetin_yes_no_id"));
-	$smarty->assign('notepoetin_drug1_trfinish_yes_no_vals', $dao->getDicValues("notepoetin_drug1_trfinish_yes_no_id"));
-	$smarty->assign('notepoetin_drug1_trfinish_cause_vals', $dao->getDicValues("notepoetin_drug1_trfinish_cause_id"));
-	$smarty->assign('notepoetin_drug2_trfinish_yes_no_vals', $dao->getDicValues("notepoetin_drug2_trfinish_yes_no_id"));
-	$smarty->assign('notepoetin_drug2_trfinish_cause_vals', $dao->getDicValues("notepoetin_drug2_trfinish_cause_id"));
-	$smarty->assign('notepoetin_drug3_trfinish_yes_no_vals', $dao->getDicValues("notepoetin_drug3_trfinish_yes_no_id"));
-	$smarty->assign('notepoetin_drug3_trfinish_cause_vals', $dao->getDicValues("notepoetin_drug3_trfinish_cause_id"));
+	$smarty->assign('neurotoxicity_level_vals', $dao->getDicValues("neurotoxicity_level_id"));
+	$smarty->assign('skin_toxicity_level_vals', $dao->getDicValues("skin_toxicity_level_id"));
 }
 
 function russianDateToMysqlDate($param){

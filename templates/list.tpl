@@ -50,7 +50,7 @@ $(document).ready(function()
 		<td style="font-size: small;">{$item->hospital_id} - {$item->doctor}</td>
 		<td style="font-size: small;">{$item->insert_date} </td>
 		{foreach $item->visits as $visit_num=>$is_visit}
-		<td style="font-size: small;{if $is_visit}background-color:green{/if}"><a href="edit.php?entity=therapy&exist={if $is_visit}1{else}0{/if}&patient_id={$item->id}&visit_id={$visit_num}">Визит 1</a></td>
+		<td style="font-size: small;{if $is_visit}background-color:green{/if}"><a href="edit.php?entity=therapy&exist={if $is_visit}1{else}0{/if}&patient_id={$item->id}&visit_id={$visit_num}">Визит</a></td>
 		{/foreach}
 	</tr>
 	{/foreach}

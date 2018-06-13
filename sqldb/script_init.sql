@@ -268,6 +268,14 @@ CREATE TABLE `lung_therapy` (
   `instr_petkt_norm_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Инструментальные исследования: ПЭТ-КТ норма/патология',
   `instr_petkt_descr` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Инструментальные исследования: ПЭТ-КТ Заключение',
   
+  `targeted_therapy_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Таргетная терапия да/нет',
+  `targeted_therapy_erlotinib_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Таргетная терапия: Эрлотиниб да/нет',
+  `targeted_therapy_gefitinib_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Таргетная терапия: Гефитиниб да/нет',
+  `targeted_therapy_cryotinib_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Таргетная терапия: Кризотиниб да/нет',
+  `targeted_therapy_nivolumab_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Таргетная терапия: Ниволумаб да/нет',
+  `targeted_therapy_other_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Таргетная терапия: Другое да/нет',
+  `targeted_therapy_descr` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Если «да», описать подробнее с указанием даты и степени токсичности',
+  
   `side_effects_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Нежелательные явления да/нет',
   `side_effects_descr` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL COMMENT 'Если «да», описать подробнее с указанием даты и степени токсичности',
   
