@@ -49,7 +49,7 @@ INSERT INTO lung_dic_list (id, name) VALUES ('visit_id','Номер визита
 INSERT INTO lung_dic_list (id, name) VALUES ('neurotoxicity_level_id','Степень нейротоксичности');
 INSERT INTO lung_dic_list (id, name) VALUES ('skin_toxicity_level_id','Степень кожной токсичности');
 
-
+INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('no_data_id',-1,'нет данных');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',1,'Алматинский ОЦ');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',2,'ВК ООД, г. Усть-Каменогорск');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',3,'Алматинский ООД, г. Талдыкорган');
@@ -90,10 +90,10 @@ INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('diag_cancer_e
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('diag_cancer_ecog_status_id',2,'1');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('diag_cancer_ecog_status_id',3,'2');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('diag_cancer_ecog_status_id',4,'3');
-INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('diag_cancer_ecog_status_id',-1,'неизвестно');
+INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('diag_cancer_ecog_status_id',5,'неизвестно');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('patient_status_id',1,'жив');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('patient_status_id',0,'умер');
-INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('patient_status_id',-1,'неизвестно');
+INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('patient_status_id',3,'неизвестно');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('patient_if_died_cause_id',1,'прогрессирование основного заболевания');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('patient_if_died_cause_id',2,'осложнения противоопухолевой терапии ');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('patient_if_died_cause_id',3,'другие причины');
@@ -134,6 +134,18 @@ CREATE TABLE `lung_user_visit` (
 )ENGINE=InnoDB
 AUTO_INCREMENT=1 CHARACTER SET 'utf8' COLLATE 'utf8_general_ci'
 
+/* Data for the `anemia_user` table  (Records 1 - 7) */
+
+INSERT INTO `lung_user` (`id`, `username_email`, `password`, `active`, `last_name`, `first_name`, `patronymic_name`, `sex_id`, `date_birth`, `project`, `comments`, `user`, `insert_date`) VALUES 
+  (30, 'sanzhar73@mail.ru', 'd8578edf8458ce06fbc5bb76a58c5ca4', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2014-05-07 08:37:11'),
+  (39, 'sanzhar73@gmail.com', 'd8578edf8458ce06fbc5bb76a58c5ca4', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2014-06-05 15:54:50'),
+  (40, 'surya_esentay@mail.ru', '652c68312240e6e3b5ce66d3238ca8b3', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2014-06-06 02:13:08'),
+  (41, 'gulsum_smagulova@mail.ru', '3e1fcaf6d5289b672b2cf4550c47143c', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2014-09-19 19:33:38'),
+  (42, 'test@test.kz', 'd8578edf8458ce06fbc5bb76a58c5ca4', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-02-21 03:39:35'),
+  (43, 'maliwka8970@gmail.com', '03e896bb6f287260e7f7dd3c52d19962', 1, 'maliwka8970qwerty', 'Гульжан', '', NULL, NULL, NULL, NULL, NULL, '2017-05-15 08:04:02'),
+  (44, 'akaldygul@mail.ru', '7eee16cbccfcd2e8aac25f8db75e7346', 1, 'akaldygul@mail.ru', 'Калдыгуль', '', 0, NULL, NULL, NULL, NULL, '2017-05-15 08:04:02');
+
+COMMIT;
 
 
 CREATE TABLE `lung_patient` (
