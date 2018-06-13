@@ -223,6 +223,7 @@ class Dao {
 		$entity->diag_cancer_estab_date = $row ['diag_cancer_estab_date'];
 		$entity->cytologic_conclusion = $row ['cytologic_conclusion'];
 		$entity->diag_cancer_histotype = $row ['diag_cancer_histotype'];
+		$entity->diag_cancer_degree_malignancy_id = $row ['diag_cancer_degree_malignancy_id'];
 		$entity->immunohistochemical_study_id = $row ['immunohistochemical_study_id'];
 		$entity->immunohistochemical_study_descr = $row ['immunohistochemical_study_descr'];
 		$entity->genetic_study_yes_no_id = $row ['genetic_study_yes_no_id'];
@@ -706,6 +707,7 @@ FROM
 		$entity->diag_cancer_estab_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['diag_cancer_estab_date'] ) );
 		$entity->cytologic_conclusion = $this->getNullForObjectFieldIfStringEmpty ( $request ['cytologic_conclusion'] );
 		$entity->diag_cancer_histotype = $this->getNullForObjectFieldIfStringEmpty ( $request ['diag_cancer_histotype'] );
+		$entity->diag_cancer_degree_malignancy_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['diag_cancer_degree_malignancy_id'] );
 		$entity->immunohistochemical_study_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['immunohistochemical_study_id'] );
 		$entity->immunohistochemical_study_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['immunohistochemical_study_descr'] );
 		$entity->genetic_study_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['genetic_study_yes_no_id'] );
@@ -1037,6 +1039,7 @@ FROM
 		}
 		return $this->pdo->lastInsertId ();
 	}
+	
 	public function insert_patient($entity) {
 		$query = "INSERT INTO
 				  " . DB_PREFIX . "patient
@@ -1059,6 +1062,7 @@ FROM
   `diag_cancer_estab_date`,
   `cytologic_conclusion`,
   `diag_cancer_histotype`,
+  `diag_cancer_degree_malignancy_id`,
   `immunohistochemical_study_id`,
   `immunohistochemical_study_descr`,
   `genetic_study_yes_no_id`,
@@ -1123,6 +1127,7 @@ VALUE (
   :diag_cancer_estab_date,
   :cytologic_conclusion,
   :diag_cancer_histotype,
+  :diag_cancer_degree_malignancy_id,
   :immunohistochemical_study_id,
   :immunohistochemical_study_descr,
   :genetic_study_yes_no_id,
@@ -1187,6 +1192,7 @@ VALUE (
 		$stmt->bindValue ( ':diag_cancer_estab_date', $entity->diag_cancer_estab_date, PDO::PARAM_STR );
 		$stmt->bindValue ( ':cytologic_conclusion', $entity->cytologic_conclusion, PDO::PARAM_STR );
 		$stmt->bindValue ( ':diag_cancer_histotype', $entity->diag_cancer_histotype, PDO::PARAM_STR );
+		$stmt->bindValue ( ':diag_cancer_degree_malignancy_id', $entity->diag_cancer_degree_malignancy_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':immunohistochemical_study_id', $entity->immunohistochemical_study_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':immunohistochemical_study_descr', $entity->immunohistochemical_study_descr, PDO::PARAM_STR );
 		$stmt->bindValue ( ':genetic_study_yes_no_id', $entity->genetic_study_yes_no_id, PDO::PARAM_STR );
@@ -1486,6 +1492,7 @@ VALUE (
 				  `diag_cancer_estab_date` = :diag_cancer_estab_date,
 				  `cytologic_conclusion` = :cytologic_conclusion,
 				  `diag_cancer_histotype` = :diag_cancer_histotype,
+                  `diag_cancer_degree_malignancy_id` = :diag_cancer_degree_malignancy_id,
 				  `immunohistochemical_study_id` = :immunohistochemical_study_id,
 				  `immunohistochemical_study_descr` = :immunohistochemical_study_descr,
 				  `genetic_study_yes_no_id` = :genetic_study_yes_no_id,
@@ -1553,6 +1560,7 @@ VALUE (
 		$stmt->bindValue(':diag_cancer_estab_date', $entity->diag_cancer_estab_date, PDO::PARAM_STR);
 		$stmt->bindValue(':cytologic_conclusion', $entity->cytologic_conclusion, PDO::PARAM_STR);
 		$stmt->bindValue(':diag_cancer_histotype', $entity->diag_cancer_histotype, PDO::PARAM_STR);
+		$stmt->bindValue(':diag_cancer_degree_malignancy_id', $entity->diag_cancer_degree_malignancy_id, PDO::PARAM_STR);
 		$stmt->bindValue(':immunohistochemical_study_id', $entity->immunohistochemical_study_id, PDO::PARAM_STR);
 		$stmt->bindValue(':immunohistochemical_study_descr', $entity->immunohistochemical_study_descr, PDO::PARAM_STR);
 		$stmt->bindValue(':genetic_study_yes_no_id', $entity->genetic_study_yes_no_id, PDO::PARAM_STR);

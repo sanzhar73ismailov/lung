@@ -193,6 +193,17 @@ $(function() {
 			{$readonly} name="diag_cancer_histotype" size="50"
 			value="{$object->diag_cancer_histotype}" /></td>
 	</tr>
+		<tr>
+		<td>Степень злокачественности</td>
+		<td><select
+			{$class_req_input} {$disabled} name="diag_cancer_degree_malignancy_id">
+			<option></option>
+			{foreach $diag_cancer_degree_malignancy_vals as $item}
+			<option {if $item->id == $object->diag_cancer_degree_malignancy_id}
+			selected="selected" {/if} value="{$item->id}">{$item->value}</option>
+			{/foreach}
+		</select></td>
+	</tr>
 	<tr>
 		<td>Иммуногистохимическое исследование</td>
 		<td><select

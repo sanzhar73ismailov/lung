@@ -34,6 +34,7 @@ INSERT INTO lung_dic_list (id, name) VALUES ('hospital_id','Мед. центра
 INSERT INTO lung_dic_list (id, name) VALUES ('sex_id','Пол');
 INSERT INTO lung_dic_list (id, name) VALUES ('place_living_id','Место жительства');
 INSERT INTO lung_dic_list (id, name) VALUES ('social_status_id','Социальный статус');
+INSERT INTO lung_dic_list (id, name) VALUES ('diag_cancer_degree_malignancy_id','Степень злокачественности');
 INSERT INTO lung_dic_list (id, name) VALUES ('immunohistochemical_study_id','Иммуногистохимическое исследование');
 INSERT INTO lung_dic_list (id, name) VALUES ('diag_cancer_tnm_stage_t_id','Стадия заболевания по системе TNM - T');
 INSERT INTO lung_dic_list (id, name) VALUES ('diag_cancer_tnm_stage_n_id','Стадия заболевания по системе TNM - N');
@@ -167,6 +168,7 @@ CREATE TABLE `lung_patient` (
   `diag_cancer_estab_date` date NOT NULL COMMENT 'Дата постановки диагноза рак',
   `cytologic_conclusion` varchar(255) NOT NULL DEFAULT '' COMMENT 'Цитологическое заключение',
   `diag_cancer_histotype` varchar(100) NOT NULL DEFAULT '' COMMENT 'Гистологический тип опухоли',
+  `diag_cancer_degree_malignancy_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Степень злокачественности',
   `immunohistochemical_study_id` int(11) NOT NULL DEFAULT '-1' COMMENT 'Иммуногистохимическое исследование',
   `immunohistochemical_study_descr` varchar(255) NOT NULL DEFAULT '' COMMENT 'Иммуногистохимическое исследование: описание',
   

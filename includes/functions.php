@@ -169,6 +169,7 @@ function fill_patient_form_by_dic($smarty, $dao){
 	$smarty->assign('sex_vals', $dao->getDicValues("sex_id"));
 	$smarty->assign('place_living_vals', $dao->getDicValues("place_living_id"));
 	$smarty->assign('social_status_vals', $dao->getDicValues("social_status_id"));
+	$smarty->assign('diag_cancer_degree_malignancy_vals', $dao->getDicValues("diag_cancer_degree_malignancy_id"));
 	$smarty->assign('immunohistochemical_study_vals', $dao->getDicValues("immunohistochemical_study_id"));
 	$smarty->assign('diag_cancer_tnm_stage_t_vals', $dao->getDicValues("diag_cancer_tnm_stage_t_id"));
 	$smarty->assign('diag_cancer_tnm_stage_n_vals', $dao->getDicValues("diag_cancer_tnm_stage_n_id"));

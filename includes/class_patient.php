@@ -19,6 +19,7 @@ class Patient extends Entity{
 	public $diag_cancer_estab_date;
 	public $cytologic_conclusion;
 	public $diag_cancer_histotype;
+	public $diag_cancer_degree_malignancy_id;
 	public $immunohistochemical_study_id;
 	public $immunohistochemical_study_descr;
 	public $genetic_study_yes_no_id;
