@@ -341,7 +341,7 @@ $(function() {
 	<tr>
 		<td>Лучевая терапия: вид, РОД, СОД и пр.</td>
 		<td><input id="instr_radiotherapy_type" {$class_req_input} type="text"
-			{$readonly} name="doctor" size="50" value="{$object->instr_radiotherapy_type}" /></td>
+			{$readonly} name="instr_radiotherapy_type" size="50" value="{$object->instr_radiotherapy_type}" /></td>
 	</tr>
 	<tr>
 		<td>Лучевая терапия: даты</td>
@@ -405,7 +405,7 @@ $(function() {
 	</tr>
 	<tr>
 		<td>Статус пациента на момент завершения исследования</td>
-		<td><select {$class_req_input} {$disabled} name="hospital_id">
+		<td><select {$class_req_input} {$disabled} name="patient_status_id">
 			<option></option>
 			{foreach $patient_status_vals as $item}
 			<option {if $item->id == $object->patient_status_id} selected="selected"
@@ -419,7 +419,7 @@ $(function() {
 	</tr>
 	<tr>
 		<td>Причина смерти</td>
-		<td><select {$class_req_input} {$disabled} name="hospital_id">
+		<td><select {$class_req_input} {$disabled} name="patient_if_died_cause_id">
 			<option></option>
 			{foreach $patient_if_died_cause_vals as $item}
 			<option {if $item->id == $object->patient_if_died_cause_id} selected="selected"
@@ -433,94 +433,7 @@ $(function() {
 			{$readonly} name="patient_if_died_cause_descr" size="50"
 			value="{$object->patient_if_died_cause_descr}" /></td>
 	</tr>
-	{*
-<tr>
-		<td>LABEL</td>
-		<td>
-		Да <input required type="radio" {$disabled} name="field_name" value="1" {if isset($object->field_name) && $object->field_name == 1} checked {/if}/>
-        Нет <input required type="radio" {$disabled} name="field_name" value="0" {if isset($object->field_name) && $object->field_name == 0} checked {/if}/>
-		</td>
-	</tr>	
 	
-	<tr>
-					<td class='td_label_form'>УЗИ
-						ОБП Заключение</td>
-					<td><textarea {$disabled} rows="3" cols="45" name="instr_us_descr" id="instr_us_descr">{$object->instr_us_descr}</textarea></td>
-				</tr>
-
-patient_number	Номер пациента (уникальный в пределах исследования)
-hospital_id	Мед. центра откуда материл (справочник)
-date_start_invest	Дата включения в исследование
-doctor	ФИО врача
-inclusion_criteria_years_more18_yes_no_id	Пациент 18 лет и старше, с впервые в жизни выявленным НМРЛ в 2015-2016 г.г. (да, нет)
-inclusion_criteria_diag_conf_histo_yes_no_id	Диагноз НМРЛ подтвержден гистологически (да, нет)
-inclusion_criteria_diag_conf_cyto_yes_no_id	Диагноз НМРЛ подтвержден цитологически (да, нет)
-inclusion_criteria_diag_conf_clin_radio_yes_no_id	Диагноз выставлен на основе клинико-рентгенологических данных (да, нет)
-inclusion_criteria_got_antitumor_therapy_yes_no_id	Пациент, получавший любой вид противоопухолевой терапии в 2015-2017 г.г. (хирургический, химиотерапевтический, таргетрная терапия, лучевая терапия) (да, нет)
-exclusion_criteria_not_got_antitumor_therapy_yes_no_id	Пациенты с впервые выявленным НМРЛ, но не получившие ни один из видов противоопухолевой терапии из-за наличия сопутствующей патологии или взятые на учет посмертно (да, нет)
-date_birth	Дата рождения
-sex_id	Пол
-place_living_id	Место жительства
-social_status_id	Социальный статус
-diag_cancer_estab_date	Дата постановки диагноза рак
-
-cytologic_conclusion	Цитологическое заключение
-diag_cancer_histotype	Гистологический тип опухоли
-
-immunohistochemical_study_id
-immunohistochemical_study_descr	
-genetic_study_yes_no_id	
-genetic_study_fish
-genetic_study_pcr
-diag_cancer_tnm_stage_t_id	Стадия заболевания по системе TNM - T
-diag_cancer_tnm_stage_n_id	Стадия заболевания по системе TNM - N
-diag_cancer_tnm_stage_m_id	Стадия заболевания по системе TNM - M
-diag_cancer_clin_stage_id	Клиническая стадия заболевания
-diag_cancer_ecog_status_id	ECOG статус на момент постановки диагноза и начала лечения
-
-instr_kt_yes_no_id	Инструментальные исследования: КТ да/нет
-instr_kt_date	Инструментальные исследования: КТ дата
-instr_kt_norm_yes_no_id	Инструментальные исследования: КТ норма/патология
-instr_kt_descr	Инструментальные исследования: КТ Заключение
-
-instr_mrt_yes_no_id	Инструментальные исследования: МРТ да/нет
-instr_mrt_date	Инструментальные исследования: МРТ дата
-instr_mrt_norm_yes_no_id	Инструментальные исследования: МРТ норма/патология
-instr_mrt_descr	Инструментальные исследования: МРТ Заключение
-
-instr_petkt_yes_no_id	Инструментальные исследования: ПЭТ-КТ да/нет
-instr_petkt_date	Инструментальные исследования: ПЭТ-КТ дата
-instr_petkt_norm_yes_no_id	Инструментальные исследования: ПЭТ-КТ норма/патология
-instr_petkt_descr	Инструментальные исследования: ПЭТ-КТ Заключение
-
-instr_radiotherapy_yes_no_id	Лучевая терапия да/нет
-instr_radiotherapy_type	Лучевая терапия: вид, РОД, СОД и пр.
-instr_radiotherapy_start_date	Лучевая терапия: дата начала
-instr_radiotherapy_end_date	Лучевая терапия: дата завершения
-
-instr_radiotherapy_kt_yes_no_id	Лучевая терапия: Инструментальные исследования: КТ да/нет
-instr_radiotherapy_kt_date	Лучевая терапия: Инструментальные исследования: КТ дата
-instr_radiotherapy_kt_norm_yes_no_id	Лучевая терапия: Инструментальные исследования: КТ норма/патология
-instr_radiotherapy_kt_descr	Лучевая терапия: Инструментальные исследования: КТ Заключение
-
-instr_radiotherapy_mrt_yes_no_id	Лучевая терапия: Инструментальные исследования: МРТ да/нет
-instr_radiotherapy_mrt_date	Лучевая терапия: Инструментальные исследования: МРТ дата
-instr_radiotherapy_mrt_norm_yes_no_id	Лучевая терапия: Инструментальные исследования: МРТ норма/патология
-instr_radiotherapy_mrt_descr	Лучевая терапия: Инструментальные исследования: МРТ Заключение
-
-instr_radiotherapy_petkt_yes_no_id	Лучевая терапия: Инструментальные исследования: ПЭТ-КТ да/нет
-instr_radiotherapy_petkt_date	Лучевая терапия: Инструментальные исследования: ПЭТ-КТ дата
-instr_radiotherapy_petkt_norm_yes_no_id	Лучевая терапия: Инструментальные исследования: ПЭТ-КТ норма/патология
-instr_radiotherapy_petkt_descr	Лучевая терапия: Инструментальные исследования: ПЭТ-КТ Заключение
-
-patient_status_last_visit_date	Дата последней информации о состоянии пациента или последнего визита
-patient_status_id	Статус пациента на момент завершения исследования
-patient_if_died_date	Если пациент умер, дата смерти
-patient_if_died_cause_id	Причина смерти
-patient_if_died_cause_descr	Причина смерти, если другие
-user	""
-insert_date	""
-	*}
 	
 {*
 	

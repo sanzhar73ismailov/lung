@@ -2,8 +2,8 @@
 //include 'includes/global.php';
 include "arr_inc.php";
 
-//foreach ($arr_pat as $value){
-foreach ($arrTher as $value){
+foreach ($arr_pat as $value){
+//foreach ($arrTher as $value){
 	//echo sprintf("\$entity->%s= \$this->getNullForObjectFieldIfStringEmpty(\$request['%s']);<br>",$value,$value);
 	//echo sprintf("\$entity->%s=\$row[0]['%s'];<br>", $value,$value);
 	echo sprintf("\$stmt->bindValue(':%s', \$entity->%s, PDO::PARAM_STR);<br>", $value,$value);
