@@ -159,15 +159,15 @@ class InvestigationEdit extends EntityEdit{
 
 	public function fill_entity_form_by_dic(){
 		$yes_no_vars = $dao->getDicValues("yes_no");
-		$this->smarty->assign('yesnovals',$yes_no_vars);
-		$this->smarty->assign('intestinum_crassum_part_vals',$dao->getDicValues("intestinum_crassum_part"));
-		$this->smarty->assign('colon_part_vals',$dao->getDicValues("colon_part"));
-		$this->smarty->assign('rectum_part_vals',$dao->getDicValues("rectum_part"));
-		$this->smarty->assign('status_gene_kras_vals',$dao->getDicValues("status_gene_kras"));
-		$this->smarty->assign('depth_of_invasion_vals',$dao->getDicValues("depth_of_invasion"));
-		$this->smarty->assign('stage_vals',$dao->getDicValues("stage"));
-		$this->smarty->assign('tumor_histological_type_vals',$dao->getDicValues("tumor_histological_type"));
-		$this->smarty->assign('tumor_differentiation_degree_vals',$dao->getDicValues("tumor_differentiation_degree"));
+		$this->smarty->assign('yesnovals', $yes_no_vars);
+		$this->smarty->assign('intestinum_crassum_part_vals', $dao->getDicValues("intestinum_crassum_part"));
+		$this->smarty->assign('colon_part_vals', $dao->getDicValues("colon_part"));
+		$this->smarty->assign('rectum_part_vals', $dao->getDicValues("rectum_part"));
+		$this->smarty->assign('status_gene_kras_vals', $dao->getDicValues("status_gene_kras"));
+		$this->smarty->assign('depth_of_invasion_vals', $dao->getDicValues("depth_of_invasion"));
+		$this->smarty->assign('stage_vals', $dao->getDicValues("stage"));
+		$this->smarty->assign('tumor_histological_type_vals', $dao->getDicValues("tumor_histological_type"));
+		$this->smarty->assign('tumor_differentiation_degree_vals', $dao->getDicValues("tumor_differentiation_degree"));
 	}
 }
 
