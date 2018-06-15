@@ -4,13 +4,15 @@ include "arr_inc.php";
 
 //foreach ($arr_pat as $value){
 foreach ($arrTher as $value){
+	/*
 	if(strpos($value, "date") > 0 ){
 		echo sprintf("\$entity->%s= russianDateToMysqlDate (\$this->getNullForObjectFieldIfStringEmpty(\$request['%s']));<br>",$value,$value);
 	}else{
 		echo sprintf("\$entity->%s= \$this->getNullForObjectFieldIfStringEmpty(\$request['%s']);<br>",$value,$value);
 	}
-	
+	*/
 	//echo sprintf("\$entity->%s=\$row[0]['%s'];<br>", $value,$value);
+	echo sprintf("\$entity->%s=\$row['%s'];<br>", $value,$value);
 	//echo sprintf("\$stmt->bindValue(':%s', \$entity->%s, PDO::PARAM_STR);<br>", $value,$value);
 	//assignDicVals($value);
 	//echo sprintf("<th>%s</th>\n", ++$i);

@@ -312,5 +312,6 @@ CREATE TABLE `lung_therapy` (
   
   `user` varchar(25) DEFAULT NULL,
   `insert_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   PRIMARY KEY (`id`)
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `patient_id` (`patient_id`, `visit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

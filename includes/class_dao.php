@@ -157,6 +157,9 @@ class Dao {
 		} catch ( PDOException $ex ) {
 			echo "Ошибка:" . $ex->getMessage ();
 		}
+		if(count ( $row ) > 1){
+			throw new Exception("больше одной строки в таблице " . DB_PREFIX . "therapy с $patient_id и $visit_id" );
+		}
 		return count ( $row ) == 1;
 	}
 	public function getAllTherapies() {
@@ -278,72 +281,73 @@ class Dao {
 	}
 	private function fromRowToTherapy($row) {
 		$entity = new Therapy ();
-		$entity->id = $row ['id'];
-		$entity->patient_id = $row ['patient_id'];
-		$entity->visit_id = $row ['visit_id'];
-		$entity->chmt_karboplatin_id = $row ['chmt_karboplatin_id'];
-		$entity->chmt_cisplatin_id = $row ['chmt_cisplatin_id'];
-		$entity->chmt_ciklofosfan_id = $row ['chmt_ciklofosfan_id'];
-		$entity->chmt_paklitaksel_id = $row ['chmt_paklitaksel_id'];
-		$entity->chmt_doksorubicin_id = $row ['chmt_doksorubicin_id'];
-		$entity->chmt_topotekan_id = $row ['chmt_topotekan_id'];
-		$entity->chmt_gemcitabin_id = $row ['chmt_gemcitabin_id'];
-		$entity->chmt_vinorelbin_id = $row ['chmt_vinorelbin_id'];
-		$entity->chmt_irinotekan_id = $row ['chmt_irinotekan_id'];
-		$entity->chmt_jetopozid_id = $row ['chmt_jetopozid_id'];
-		$entity->chmt_jepirubicin_id = $row ['chmt_jepirubicin_id'];
-		$entity->chmt_docetaksel_id = $row ['chmt_docetaksel_id'];
-		$entity->chmt_oksaliplatin_id = $row ['chmt_oksaliplatin_id'];
-		$entity->chmt_trabektedin_id = $row ['chmt_trabektedin_id'];
-		$entity->chmt_other_id = $row ['chmt_other_id'];
-		$entity->chmt_other_descr = $row ['chmt_other_descr'];
-		$entity->chmt_date_start = $row ['chmt_date_start'];
-		$entity->chmt_date_finish = $row ['chmt_date_finish'];
-		$entity->diaganem_afterchmt_hb = $row ['diaganem_afterchmt_hb'];
-		$entity->diaganem_afterchmt_hb_date = $row ['diaganem_afterchmt_hb_date'];
-		$entity->diaganem_afterchmt_erythrocytes = $row ['diaganem_afterchmt_erythrocytes'];
-		$entity->diaganem_afterchmt_lab_erythrocytes_date = $row ['diaganem_afterchmt_lab_erythrocytes_date'];
-		$entity->epoetin_yes_no_id = $row ['epoetin_yes_no_id'];
-		$entity->epoetin_eprex40k_dstart = $row ['epoetin_eprex40k_dstart'];
-		$entity->epoetin_eprex40k_dfinish = $row ['epoetin_eprex40k_dfinish'];
-		$entity->epoetin_eprex40k_trfinish_yes_no_id = $row ['epoetin_eprex40k_trfinish_yes_no_id'];
-		$entity->epoetin_eprex40k_trfinish_cause_id = $row ['epoetin_eprex40k_trfinish_cause_id'];
-		$entity->epoetin_eprex2k5ML_dstart = $row ['epoetin_eprex2k5ML_dstart'];
-		$entity->epoetin_eprex2k5ML_dfinish = $row ['epoetin_eprex2k5ML_dfinish'];
-		$entity->epoetin_eprex2k5ML_trfinish_yes_no_id = $row ['epoetin_eprex2k5ML_trfinish_yes_no_id'];
-		$entity->epoetin_eprex2k5ML_trfinish_cause_id = $row ['epoetin_eprex2k5ML_trfinish_cause_id'];
-		$entity->epoetin_rekormon_dstart = $row ['epoetin_rekormon_dstart'];
-		$entity->epoetin_rekormon_dfinish = $row ['epoetin_rekormon_dfinish'];
-		$entity->epoetin_rekormon_trfinish_yes_no_id = $row ['epoetin_rekormon_trfinish_yes_no_id'];
-		$entity->epoetin_rekormon_trfinish_cause_id = $row ['epoetin_rekormon_trfinish_cause_id'];
-		$entity->epoetin_other_name = $row ['epoetin_other_name'];
-		$entity->epoetin_other_dstart = $row ['epoetin_other_dstart'];
-		$entity->epoetin_other_dfinish = $row ['epoetin_other_dfinish'];
-		$entity->epoetin_other_trfinish_yes_no_id = $row ['epoetin_other_trfinish_yes_no_id'];
-		$entity->epoetin_other_trfinish_cause_id = $row ['epoetin_other_trfinish_cause_id'];
-		$entity->ferrum_yes_no_id = $row ['ferrum_yes_no_id'];
-		$entity->ferrum_dstart = $row ['ferrum_dstart'];
-		$entity->ferrum_dfinish = $row ['ferrum_dfinish'];
-		$entity->notepoetin_yes_no_id = $row ['notepoetin_yes_no_id'];
-		$entity->notepoetin_drug1_name = $row ['notepoetin_drug1_name'];
-		$entity->notepoetin_drug1_dstart = $row ['notepoetin_drug1_dstart'];
-		$entity->notepoetin_drug1_dfinish = $row ['notepoetin_drug1_dfinish'];
-		$entity->notepoetin_drug1_trfinish_yes_no_id = $row ['notepoetin_drug1_trfinish_yes_no_id'];
-		$entity->notepoetin_drug1_trfinish_cause_id = $row ['notepoetin_drug1_trfinish_cause_id'];
-		$entity->notepoetin_drug2_name = $row ['notepoetin_drug2_name'];
-		$entity->notepoetin_drug2_dstart = $row ['notepoetin_drug2_dstart'];
-		$entity->notepoetin_drug2_dfinish = $row ['notepoetin_drug2_dfinish'];
-		$entity->notepoetin_drug2_trfinish_yes_no_id = $row ['notepoetin_drug2_trfinish_yes_no_id'];
-		$entity->notepoetin_drug2_trfinish_cause_id = $row ['notepoetin_drug2_trfinish_cause_id'];
-		$entity->notepoetin_drug3_name = $row ['notepoetin_drug3_name'];
-		$entity->notepoetin_drug3_dstart = $row ['notepoetin_drug3_dstart'];
-		$entity->notepoetin_drug3_dfinish = $row ['notepoetin_drug3_dfinish'];
-		$entity->notepoetin_drug3_trfinish_yes_no_id = $row ['notepoetin_drug3_trfinish_yes_no_id'];
-		$entity->notepoetin_drug3_trfinish_cause_id = $row ['notepoetin_drug3_trfinish_cause_id'];
-		$entity->diaganem_after_correct_hb = $row ['diaganem_after_correct_hb'];
-		$entity->diaganem_after_correct_hb_date = $row ['diaganem_after_correct_hb_date'];
-		$entity->diaganem_after_correct_erythrocytes = $row ['diaganem_after_correct_erythrocytes'];
-		$entity->diaganem_after_correct_lab_erythrocytes_date = $row ['diaganem_after_correct_lab_erythrocytes_date'];
+		$entity->id=$row['id'];
+		$entity->patient_id=$row['patient_id'];
+		$entity->visit_id=$row['visit_id'];
+		$entity->chmt_karboplatin_yes_no_id=$row['chmt_karboplatin_yes_no_id'];
+		$entity->chmt_cisplatin_yes_no_id=$row['chmt_cisplatin_yes_no_id'];
+		$entity->chmt_ciklofosfan_yes_no_id=$row['chmt_ciklofosfan_yes_no_id'];
+		$entity->chmt_paklitaksel_yes_no_id=$row['chmt_paklitaksel_yes_no_id'];
+		$entity->chmt_doksorubicin_yes_no_id=$row['chmt_doksorubicin_yes_no_id'];
+		$entity->chmt_topotekan_yes_no_id=$row['chmt_topotekan_yes_no_id'];
+		$entity->chmt_gemcitabin_yes_no_id=$row['chmt_gemcitabin_yes_no_id'];
+		$entity->chmt_vinorelbin_yes_no_id=$row['chmt_vinorelbin_yes_no_id'];
+		$entity->chmt_irinotekan_yes_no_id=$row['chmt_irinotekan_yes_no_id'];
+		$entity->chmt_jetopozid_yes_no_id=$row['chmt_jetopozid_yes_no_id'];
+		$entity->chmt_jepirubicin_yes_no_id=$row['chmt_jepirubicin_yes_no_id'];
+		$entity->chmt_docetaksel_yes_no_id=$row['chmt_docetaksel_yes_no_id'];
+		$entity->chmt_oksaliplatin_yes_no_id=$row['chmt_oksaliplatin_yes_no_id'];
+		$entity->chmt_other_yes_no_id=$row['chmt_other_yes_no_id'];
+		$entity->chmt_other_descr=$row['chmt_other_descr'];
+		$entity->chmt_date_start=$row['chmt_date_start'];
+		$entity->chmt_date_finish=$row['chmt_date_finish'];
+		$entity->instr_kt_yes_no_id=$row['instr_kt_yes_no_id'];
+		$entity->instr_kt_date=$row['instr_kt_date'];
+		$entity->instr_kt_norm_yes_no_id=$row['instr_kt_norm_yes_no_id'];
+		$entity->instr_kt_descr=$row['instr_kt_descr'];
+		$entity->instr_mrt_yes_no_id=$row['instr_mrt_yes_no_id'];
+		$entity->instr_mrt_date=$row['instr_mrt_date'];
+		$entity->instr_mrt_norm_yes_no_id=$row['instr_mrt_norm_yes_no_id'];
+		$entity->instr_mrt_descr=$row['instr_mrt_descr'];
+		$entity->instr_petkt_yes_no_id=$row['instr_petkt_yes_no_id'];
+		$entity->instr_petkt_date=$row['instr_petkt_date'];
+		$entity->instr_petkt_norm_yes_no_id=$row['instr_petkt_norm_yes_no_id'];
+		$entity->instr_petkt_descr=$row['instr_petkt_descr'];
+		$entity->targeted_therapy_yes_no_id=$row['targeted_therapy_yes_no_id'];
+		$entity->targeted_therapy_erlotinib_yes_no_id=$row['targeted_therapy_erlotinib_yes_no_id'];
+		$entity->targeted_therapy_gefitinib_yes_no_id=$row['targeted_therapy_gefitinib_yes_no_id'];
+		$entity->targeted_therapy_cryotinib_yes_no_id=$row['targeted_therapy_cryotinib_yes_no_id'];
+		$entity->targeted_therapy_nivolumab_yes_no_id=$row['targeted_therapy_nivolumab_yes_no_id'];
+		$entity->targeted_therapy_other_yes_no_id=$row['targeted_therapy_other_yes_no_id'];
+		$entity->targeted_therapy_descr=$row['targeted_therapy_descr'];
+		$entity->side_effects_yes_no_id=$row['side_effects_yes_no_id'];
+		$entity->side_effects_descr=$row['side_effects_descr'];
+		$entity->hb_before_ct=$row['hb_before_ct'];
+		$entity->hb_before_ct_date=$row['hb_before_ct_date'];
+		$entity->erythrocytes_before_ct=$row['erythrocytes_before_ct'];
+		$entity->erythrocytes_before_ct_date=$row['erythrocytes_before_ct_date'];
+		$entity->leuc_before_ct=$row['leuc_before_ct'];
+		$entity->leuc_before_ct_date=$row['leuc_before_ct_date'];
+		$entity->tromb_before_ct=$row['tromb_before_ct'];
+		$entity->tromb_before_ct_date=$row['tromb_before_ct_date'];
+		$entity->neutr_before_ct=$row['neutr_before_ct'];
+		$entity->neutr_before_ct_date=$row['neutr_before_ct_date'];
+		$entity->gen_prot_before_ct=$row['gen_prot_before_ct'];
+		$entity->gen_prot_before_ct_date=$row['gen_prot_before_ct_date'];
+		$entity->ast_before_ct=$row['ast_before_ct'];
+		$entity->ast_before_ct_date=$row['ast_before_ct_date'];
+		$entity->alt_before_ct=$row['alt_before_ct'];
+		$entity->alt_before_ct_date=$row['alt_before_ct_date'];
+		$entity->bilirubin_before_ct=$row['bilirubin_before_ct'];
+		$entity->bilirubin_before_ct_date=$row['bilirubin_before_ct_date'];
+		$entity->creat_before_ct=$row['creat_before_ct'];
+		$entity->creat_before_ct_date=$row['creat_before_ct_date'];
+		$entity->urea_before_ct=$row['urea_before_ct'];
+		$entity->urea_before_ct_date=$row['urea_before_ct_date'];
+		$entity->neurotoxicity_yes_no_id=$row['neurotoxicity_yes_no_id'];
+		$entity->neurotoxicity_level_id=$row['neurotoxicity_level_id'];
+		$entity->skin_toxicity_yes_no_id=$row['skin_toxicity_yes_no_id'];
+		$entity->skin_toxicity_level_id=$row['skin_toxicity_level_id'];
 		$entity->user = $row ['user'];
 		$entity->insert_date = $row ['insert_date'];
 		return $entity;
@@ -687,6 +691,16 @@ FROM
 			return null;
 		return $val;
 	}
+	
+	public function getValFromRequest($request, $attr){
+		if(!isset($request[$attr])){
+			if(endsWithId($attr))
+				return '-1';
+				else
+					return null;
+		}
+		return $request[$attr];
+	}
 	public function parse_form_to_patient($request) {
 		$entity = new Patient ();
 		$entity->id = $this->getNullForObjectFieldIfStringEmpty ( $request ['id'] );
@@ -811,15 +825,15 @@ FROM
 		$entity->chmt_date_finish= russianDateToMysqlDate ($this->getNullForObjectFieldIfStringEmpty($request['chmt_date_finish']));
 		$entity->instr_kt_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['instr_kt_yes_no_id']);
 		$entity->instr_kt_date= russianDateToMysqlDate ($this->getNullForObjectFieldIfStringEmpty($request['instr_kt_date']));
-		$entity->instr_kt_norm_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['instr_kt_norm_yes_no_id']);
+		$entity->instr_kt_norm_yes_no_id= $this->getValFromRequest($request, 'instr_kt_norm_yes_no_id');
 		$entity->instr_kt_descr= $this->getNullForObjectFieldIfStringEmpty($request['instr_kt_descr']);
 		$entity->instr_mrt_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['instr_mrt_yes_no_id']);
 		$entity->instr_mrt_date= russianDateToMysqlDate ($this->getNullForObjectFieldIfStringEmpty($request['instr_mrt_date']));
-		$entity->instr_mrt_norm_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['instr_mrt_norm_yes_no_id']);
+		$entity->instr_mrt_norm_yes_no_id= $this->getValFromRequest($request, 'instr_mrt_norm_yes_no_id');
 		$entity->instr_mrt_descr= $this->getNullForObjectFieldIfStringEmpty($request['instr_mrt_descr']);
 		$entity->instr_petkt_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['instr_petkt_yes_no_id']);
 		$entity->instr_petkt_date= russianDateToMysqlDate ($this->getNullForObjectFieldIfStringEmpty($request['instr_petkt_date']));
-		$entity->instr_petkt_norm_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['instr_petkt_norm_yes_no_id']);
+		$entity->instr_petkt_norm_yes_no_id= $this->getValFromRequest($request, 'instr_petkt_norm_yes_no_id');
 		$entity->instr_petkt_descr= $this->getNullForObjectFieldIfStringEmpty($request['instr_petkt_descr']);
 		$entity->targeted_therapy_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['targeted_therapy_yes_no_id']);
 		$entity->targeted_therapy_erlotinib_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['targeted_therapy_erlotinib_yes_no_id']);
@@ -1255,210 +1269,214 @@ VALUE (
 		$query = "INSERT INTO
 				  " . DB_PREFIX . "therapy
 				(
+				  id,
 				  patient_id,
 				  visit_id,
-				  chmt_karboplatin_id,
-				  chmt_cisplatin_id,
-				  chmt_ciklofosfan_id,
-				  chmt_paklitaksel_id,
-				  chmt_doksorubicin_id,
-				  chmt_topotekan_id,
-				  chmt_gemcitabin_id,
-				  chmt_vinorelbin_id,
-				  chmt_irinotekan_id,
-				  chmt_jetopozid_id,
-				  chmt_jepirubicin_id,
-				  chmt_docetaksel_id,
-				  chmt_oksaliplatin_id,
-				  chmt_trabektedin_id,
-				  chmt_other_id,
+				  chmt_karboplatin_yes_no_id,
+				  chmt_cisplatin_yes_no_id,
+				  chmt_ciklofosfan_yes_no_id,
+				  chmt_paklitaksel_yes_no_id,
+				  chmt_doksorubicin_yes_no_id,
+				  chmt_topotekan_yes_no_id,
+				  chmt_gemcitabin_yes_no_id,
+				  chmt_vinorelbin_yes_no_id,
+				  chmt_irinotekan_yes_no_id,
+				  chmt_jetopozid_yes_no_id,
+				  chmt_jepirubicin_yes_no_id,
+				  chmt_docetaksel_yes_no_id,
+				  chmt_oksaliplatin_yes_no_id,
+				  chmt_other_yes_no_id,
 				  chmt_other_descr,
 				  chmt_date_start,
 				  chmt_date_finish,
-				  diaganem_afterchmt_hb,
-				  diaganem_afterchmt_hb_date,
-				  diaganem_afterchmt_erythrocytes,
-				  diaganem_afterchmt_lab_erythrocytes_date,
-				  epoetin_yes_no_id,
-				  epoetin_eprex40k_dstart,
-				  epoetin_eprex40k_dfinish,
-				  epoetin_eprex40k_trfinish_yes_no_id,
-				  epoetin_eprex40k_trfinish_cause_id,
-				  epoetin_eprex2k5ML_dstart,
-				  epoetin_eprex2k5ML_dfinish,
-				  epoetin_eprex2k5ML_trfinish_yes_no_id,
-				  epoetin_eprex2k5ML_trfinish_cause_id,
-				  epoetin_rekormon_dstart,
-				  epoetin_rekormon_dfinish,
-				  epoetin_rekormon_trfinish_yes_no_id,
-				  epoetin_rekormon_trfinish_cause_id,
-				  epoetin_other_name,
-				  epoetin_other_dstart,
-				  epoetin_other_dfinish,
-				  epoetin_other_trfinish_yes_no_id,
-				  epoetin_other_trfinish_cause_id,
-				  ferrum_yes_no_id,
-				  ferrum_dstart,
-				  ferrum_dfinish,
-				  notepoetin_yes_no_id,
-				  notepoetin_drug1_name,
-				  notepoetin_drug1_dstart,
-				  notepoetin_drug1_dfinish,
-				  notepoetin_drug1_trfinish_yes_no_id,
-				  notepoetin_drug1_trfinish_cause_id,
-				  notepoetin_drug2_name,
-				  notepoetin_drug2_dstart,
-				  notepoetin_drug2_dfinish,
-				  notepoetin_drug2_trfinish_yes_no_id,
-				  notepoetin_drug2_trfinish_cause_id,
-				  notepoetin_drug3_name,
-				  notepoetin_drug3_dstart,
-				  notepoetin_drug3_dfinish,
-				  notepoetin_drug3_trfinish_yes_no_id,
-				  notepoetin_drug3_trfinish_cause_id,
-				  diaganem_after_correct_hb,
-				  diaganem_after_correct_hb_date,
-				  diaganem_after_correct_erythrocytes,
-				  diaganem_after_correct_lab_erythrocytes_date,
+				  instr_kt_yes_no_id,
+				  instr_kt_date,
+				  instr_kt_norm_yes_no_id,
+				  instr_kt_descr,
+				  instr_mrt_yes_no_id,
+				  instr_mrt_date,
+				  instr_mrt_norm_yes_no_id,
+				  instr_mrt_descr,
+				  instr_petkt_yes_no_id,
+				  instr_petkt_date,
+				  instr_petkt_norm_yes_no_id,
+				  instr_petkt_descr,
+				  targeted_therapy_yes_no_id,
+				  targeted_therapy_erlotinib_yes_no_id,
+				  targeted_therapy_gefitinib_yes_no_id,
+				  targeted_therapy_cryotinib_yes_no_id,
+				  targeted_therapy_nivolumab_yes_no_id,
+				  targeted_therapy_other_yes_no_id,
+				  targeted_therapy_descr,
+				  side_effects_yes_no_id,
+				  side_effects_descr,
+				  hb_before_ct,
+				  hb_before_ct_date,
+				  erythrocytes_before_ct,
+				  erythrocytes_before_ct_date,
+				  leuc_before_ct,
+				  leuc_before_ct_date,
+				  tromb_before_ct,
+				  tromb_before_ct_date,
+				  neutr_before_ct,
+				  neutr_before_ct_date,
+				  gen_prot_before_ct,
+				  gen_prot_before_ct_date,
+				  ast_before_ct,
+				  ast_before_ct_date,
+				  alt_before_ct,
+				  alt_before_ct_date,
+				  bilirubin_before_ct,
+				  bilirubin_before_ct_date,
+				  creat_before_ct,
+				  creat_before_ct_date,
+				  urea_before_ct,
+				  urea_before_ct_date,
+				  neurotoxicity_yes_no_id,
+				  neurotoxicity_level_id,
+				  skin_toxicity_yes_no_id,
+				  skin_toxicity_level_id,
 				  user
 				) 
 				VALUE (
+				  :id,
 				  :patient_id,
 				  :visit_id,
-				  :chmt_karboplatin_id,
-				  :chmt_cisplatin_id,
-				  :chmt_ciklofosfan_id,
-				  :chmt_paklitaksel_id,
-				  :chmt_doksorubicin_id,
-				  :chmt_topotekan_id,
-				  :chmt_gemcitabin_id,
-				  :chmt_vinorelbin_id,
-				  :chmt_irinotekan_id,
-				  :chmt_jetopozid_id,
-				  :chmt_jepirubicin_id,
-				  :chmt_docetaksel_id,
-				  :chmt_oksaliplatin_id,
-				  :chmt_trabektedin_id,
-				  :chmt_other_id,
+				  :chmt_karboplatin_yes_no_id,
+				  :chmt_cisplatin_yes_no_id,
+				  :chmt_ciklofosfan_yes_no_id,
+				  :chmt_paklitaksel_yes_no_id,
+				  :chmt_doksorubicin_yes_no_id,
+				  :chmt_topotekan_yes_no_id,
+				  :chmt_gemcitabin_yes_no_id,
+				  :chmt_vinorelbin_yes_no_id,
+				  :chmt_irinotekan_yes_no_id,
+				  :chmt_jetopozid_yes_no_id,
+				  :chmt_jepirubicin_yes_no_id,
+				  :chmt_docetaksel_yes_no_id,
+				  :chmt_oksaliplatin_yes_no_id,
+				  :chmt_other_yes_no_id,
 				  :chmt_other_descr,
 				  :chmt_date_start,
 				  :chmt_date_finish,
-				  :diaganem_afterchmt_hb,
-				  :diaganem_afterchmt_hb_date,
-				  :diaganem_afterchmt_erythrocytes,
-				  :diaganem_afterchmt_lab_erythrocytes_date,
-				  :epoetin_yes_no_id,
-				  :epoetin_eprex40k_dstart,
-				  :epoetin_eprex40k_dfinish,
-				  :epoetin_eprex40k_trfinish_yes_no_id,
-				  :epoetin_eprex40k_trfinish_cause_id,
-				  :epoetin_eprex2k5ML_dstart,
-				  :epoetin_eprex2k5ML_dfinish,
-				  :epoetin_eprex2k5ML_trfinish_yes_no_id,
-				  :epoetin_eprex2k5ML_trfinish_cause_id,
-				  :epoetin_rekormon_dstart,
-				  :epoetin_rekormon_dfinish,
-				  :epoetin_rekormon_trfinish_yes_no_id,
-				  :epoetin_rekormon_trfinish_cause_id,
-				  :epoetin_other_name,
-				  :epoetin_other_dstart,
-				  :epoetin_other_dfinish,
-				  :epoetin_other_trfinish_yes_no_id,
-				  :epoetin_other_trfinish_cause_id,
-				  :ferrum_yes_no_id,
-				  :ferrum_dstart,
-				  :ferrum_dfinish,
-				  :notepoetin_yes_no_id,
-				  :notepoetin_drug1_name,
-				  :notepoetin_drug1_dstart,
-				  :notepoetin_drug1_dfinish,
-				  :notepoetin_drug1_trfinish_yes_no_id,
-				  :notepoetin_drug1_trfinish_cause_id,
-				  :notepoetin_drug2_name,
-				  :notepoetin_drug2_dstart,
-				  :notepoetin_drug2_dfinish,
-				  :notepoetin_drug2_trfinish_yes_no_id,
-				  :notepoetin_drug2_trfinish_cause_id,
-				  :notepoetin_drug3_name,
-				  :notepoetin_drug3_dstart,
-				  :notepoetin_drug3_dfinish,
-				  :notepoetin_drug3_trfinish_yes_no_id,
-				  :notepoetin_drug3_trfinish_cause_id,
-				  :diaganem_after_correct_hb,
-				  :diaganem_after_correct_hb_date,
-				  :diaganem_after_correct_erythrocytes,
-				  :diaganem_after_correct_lab_erythrocytes_date,
+				  :instr_kt_yes_no_id,
+				  :instr_kt_date,
+				  :instr_kt_norm_yes_no_id,
+				  :instr_kt_descr,
+				  :instr_mrt_yes_no_id,
+				  :instr_mrt_date,
+				  :instr_mrt_norm_yes_no_id,
+				  :instr_mrt_descr,
+				  :instr_petkt_yes_no_id,
+				  :instr_petkt_date,
+				  :instr_petkt_norm_yes_no_id,
+				  :instr_petkt_descr,
+				  :targeted_therapy_yes_no_id,
+				  :targeted_therapy_erlotinib_yes_no_id,
+				  :targeted_therapy_gefitinib_yes_no_id,
+				  :targeted_therapy_cryotinib_yes_no_id,
+				  :targeted_therapy_nivolumab_yes_no_id,
+				  :targeted_therapy_other_yes_no_id,
+				  :targeted_therapy_descr,
+				  :side_effects_yes_no_id,
+				  :side_effects_descr,
+				  :hb_before_ct,
+				  :hb_before_ct_date,
+				  :erythrocytes_before_ct,
+				  :erythrocytes_before_ct_date,
+				  :leuc_before_ct,
+				  :leuc_before_ct_date,
+				  :tromb_before_ct,
+				  :tromb_before_ct_date,
+				  :neutr_before_ct,
+				  :neutr_before_ct_date,
+				  :gen_prot_before_ct,
+				  :gen_prot_before_ct_date,
+				  :ast_before_ct,
+				  :ast_before_ct_date,
+				  :alt_before_ct,
+				  :alt_before_ct_date,
+				  :bilirubin_before_ct,
+				  :bilirubin_before_ct_date,
+				  :creat_before_ct,
+				  :creat_before_ct_date,
+				  :urea_before_ct,
+				  :urea_before_ct_date,
+				  :neurotoxicity_yes_no_id,
+				  :neurotoxicity_level_id,
+				  :skin_toxicity_yes_no_id,
+				  :skin_toxicity_level_id,
 				  :user
 				)";
 		
 		$stmt = $this->pdo->prepare ( $query );
-		// $stmt->bindValue(':id', $entity->id, PDO::PARAM_STR);
-		$stmt->bindValue ( ':patient_id', $entity->patient_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':visit_id', $entity->visit_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_karboplatin_id', $entity->chmt_karboplatin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_cisplatin_id', $entity->chmt_cisplatin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_ciklofosfan_id', $entity->chmt_ciklofosfan_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_paklitaksel_id', $entity->chmt_paklitaksel_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_doksorubicin_id', $entity->chmt_doksorubicin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_topotekan_id', $entity->chmt_topotekan_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_gemcitabin_id', $entity->chmt_gemcitabin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_vinorelbin_id', $entity->chmt_vinorelbin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_irinotekan_id', $entity->chmt_irinotekan_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_jetopozid_id', $entity->chmt_jetopozid_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_jepirubicin_id', $entity->chmt_jepirubicin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_docetaksel_id', $entity->chmt_docetaksel_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_oksaliplatin_id', $entity->chmt_oksaliplatin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_trabektedin_id', $entity->chmt_trabektedin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_other_id', $entity->chmt_other_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_other_descr', $entity->chmt_other_descr, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_date_start', $entity->chmt_date_start, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_date_finish', $entity->chmt_date_finish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_hb', $entity->diaganem_afterchmt_hb, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_hb_date', $entity->diaganem_afterchmt_hb_date, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_erythrocytes', $entity->diaganem_afterchmt_erythrocytes, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_lab_erythrocytes_date', $entity->diaganem_afterchmt_lab_erythrocytes_date, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_yes_no_id', $entity->epoetin_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_dstart', $entity->epoetin_eprex40k_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_dfinish', $entity->epoetin_eprex40k_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_trfinish_yes_no_id', $entity->epoetin_eprex40k_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_trfinish_cause_id', $entity->epoetin_eprex40k_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_dstart', $entity->epoetin_eprex2k5ML_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_dfinish', $entity->epoetin_eprex2k5ML_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_trfinish_yes_no_id', $entity->epoetin_eprex2k5ML_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_trfinish_cause_id', $entity->epoetin_eprex2k5ML_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_dstart', $entity->epoetin_rekormon_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_dfinish', $entity->epoetin_rekormon_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_trfinish_yes_no_id', $entity->epoetin_rekormon_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_trfinish_cause_id', $entity->epoetin_rekormon_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_name', $entity->epoetin_other_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_dstart', $entity->epoetin_other_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_dfinish', $entity->epoetin_other_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_trfinish_yes_no_id', $entity->epoetin_other_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_trfinish_cause_id', $entity->epoetin_other_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':ferrum_yes_no_id', $entity->ferrum_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':ferrum_dstart', $entity->ferrum_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':ferrum_dfinish', $entity->ferrum_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_yes_no_id', $entity->notepoetin_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_name', $entity->notepoetin_drug1_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_dstart', $entity->notepoetin_drug1_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_dfinish', $entity->notepoetin_drug1_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_trfinish_yes_no_id', $entity->notepoetin_drug1_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_trfinish_cause_id', $entity->notepoetin_drug1_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_name', $entity->notepoetin_drug2_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_dstart', $entity->notepoetin_drug2_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_dfinish', $entity->notepoetin_drug2_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_trfinish_yes_no_id', $entity->notepoetin_drug2_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_trfinish_cause_id', $entity->notepoetin_drug2_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_name', $entity->notepoetin_drug3_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_dstart', $entity->notepoetin_drug3_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_dfinish', $entity->notepoetin_drug3_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_trfinish_yes_no_id', $entity->notepoetin_drug3_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_trfinish_cause_id', $entity->notepoetin_drug3_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_hb', $entity->diaganem_after_correct_hb, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_hb_date', $entity->diaganem_after_correct_hb_date, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_erythrocytes', $entity->diaganem_after_correct_erythrocytes, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_lab_erythrocytes_date', $entity->diaganem_after_correct_lab_erythrocytes_date, PDO::PARAM_STR );
-		$stmt->bindValue ( ':user', $entity->user, PDO::PARAM_STR );
+		$stmt->bindValue(':id', $entity->id, PDO::PARAM_STR);
+		$stmt->bindValue(':patient_id', $entity->patient_id, PDO::PARAM_STR);
+		$stmt->bindValue(':visit_id', $entity->visit_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_karboplatin_yes_no_id', $entity->chmt_karboplatin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_cisplatin_yes_no_id', $entity->chmt_cisplatin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_ciklofosfan_yes_no_id', $entity->chmt_ciklofosfan_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_paklitaksel_yes_no_id', $entity->chmt_paklitaksel_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_doksorubicin_yes_no_id', $entity->chmt_doksorubicin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_topotekan_yes_no_id', $entity->chmt_topotekan_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_gemcitabin_yes_no_id', $entity->chmt_gemcitabin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_vinorelbin_yes_no_id', $entity->chmt_vinorelbin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_irinotekan_yes_no_id', $entity->chmt_irinotekan_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_jetopozid_yes_no_id', $entity->chmt_jetopozid_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_jepirubicin_yes_no_id', $entity->chmt_jepirubicin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_docetaksel_yes_no_id', $entity->chmt_docetaksel_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_oksaliplatin_yes_no_id', $entity->chmt_oksaliplatin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_other_yes_no_id', $entity->chmt_other_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_other_descr', $entity->chmt_other_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_date_start', $entity->chmt_date_start, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_date_finish', $entity->chmt_date_finish, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_yes_no_id', $entity->instr_kt_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_date', $entity->instr_kt_date, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_norm_yes_no_id', $entity->instr_kt_norm_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_descr', $entity->instr_kt_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_yes_no_id', $entity->instr_mrt_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_date', $entity->instr_mrt_date, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_norm_yes_no_id', $entity->instr_mrt_norm_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_descr', $entity->instr_mrt_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_yes_no_id', $entity->instr_petkt_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_date', $entity->instr_petkt_date, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_norm_yes_no_id', $entity->instr_petkt_norm_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_descr', $entity->instr_petkt_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_yes_no_id', $entity->targeted_therapy_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_erlotinib_yes_no_id', $entity->targeted_therapy_erlotinib_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_gefitinib_yes_no_id', $entity->targeted_therapy_gefitinib_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_cryotinib_yes_no_id', $entity->targeted_therapy_cryotinib_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_nivolumab_yes_no_id', $entity->targeted_therapy_nivolumab_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_other_yes_no_id', $entity->targeted_therapy_other_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_descr', $entity->targeted_therapy_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':side_effects_yes_no_id', $entity->side_effects_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':side_effects_descr', $entity->side_effects_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':hb_before_ct', $entity->hb_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':hb_before_ct_date', $entity->hb_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':erythrocytes_before_ct', $entity->erythrocytes_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':erythrocytes_before_ct_date', $entity->erythrocytes_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':leuc_before_ct', $entity->leuc_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':leuc_before_ct_date', $entity->leuc_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':tromb_before_ct', $entity->tromb_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':tromb_before_ct_date', $entity->tromb_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':neutr_before_ct', $entity->neutr_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':neutr_before_ct_date', $entity->neutr_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':gen_prot_before_ct', $entity->gen_prot_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':gen_prot_before_ct_date', $entity->gen_prot_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':ast_before_ct', $entity->ast_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':ast_before_ct_date', $entity->ast_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':alt_before_ct', $entity->alt_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':alt_before_ct_date', $entity->alt_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':bilirubin_before_ct', $entity->bilirubin_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':bilirubin_before_ct_date', $entity->bilirubin_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':creat_before_ct', $entity->creat_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':creat_before_ct_date', $entity->creat_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':urea_before_ct', $entity->urea_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':urea_before_ct_date', $entity->urea_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':neurotoxicity_yes_no_id', $entity->neurotoxicity_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':neurotoxicity_level_id', $entity->neurotoxicity_level_id, PDO::PARAM_STR);
+		$stmt->bindValue(':skin_toxicity_yes_no_id', $entity->skin_toxicity_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':skin_toxicity_level_id', $entity->skin_toxicity_level_id, PDO::PARAM_STR);$stmt->bindValue ( ':user', $entity->user, PDO::PARAM_STR );
 		// echo "<br>".$stmt->queryString . "<br>";
 		try {
 			$stmt->execute ();
@@ -1626,139 +1644,141 @@ VALUE (
 		SET 
 		  patient_id = :patient_id,
 		  visit_id = :visit_id,
-		  chmt_karboplatin_id = :chmt_karboplatin_id,
-		  chmt_cisplatin_id = :chmt_cisplatin_id,
-		  chmt_ciklofosfan_id = :chmt_ciklofosfan_id,
-		  chmt_paklitaksel_id = :chmt_paklitaksel_id,
-		  chmt_doksorubicin_id = :chmt_doksorubicin_id,
-		  chmt_topotekan_id = :chmt_topotekan_id,
-		  chmt_gemcitabin_id = :chmt_gemcitabin_id,
-		  chmt_vinorelbin_id = :chmt_vinorelbin_id,
-		  chmt_irinotekan_id = :chmt_irinotekan_id,
-		  chmt_jetopozid_id = :chmt_jetopozid_id,
-		  chmt_jepirubicin_id = :chmt_jepirubicin_id,
-		  chmt_docetaksel_id = :chmt_docetaksel_id,
-		  chmt_oksaliplatin_id = :chmt_oksaliplatin_id,
-		  chmt_trabektedin_id = :chmt_trabektedin_id,
-		  chmt_other_id = :chmt_other_id,
+		  chmt_karboplatin_yes_no_id = :chmt_karboplatin_yes_no_id,
+		  chmt_cisplatin_yes_no_id = :chmt_cisplatin_yes_no_id,
+		  chmt_ciklofosfan_yes_no_id = :chmt_ciklofosfan_yes_no_id,
+		  chmt_paklitaksel_yes_no_id = :chmt_paklitaksel_yes_no_id,
+		  chmt_doksorubicin_yes_no_id = :chmt_doksorubicin_yes_no_id,
+		  chmt_topotekan_yes_no_id = :chmt_topotekan_yes_no_id,
+		  chmt_gemcitabin_yes_no_id = :chmt_gemcitabin_yes_no_id,
+		  chmt_vinorelbin_yes_no_id = :chmt_vinorelbin_yes_no_id,
+		  chmt_irinotekan_yes_no_id = :chmt_irinotekan_yes_no_id,
+		  chmt_jetopozid_yes_no_id = :chmt_jetopozid_yes_no_id,
+		  chmt_jepirubicin_yes_no_id = :chmt_jepirubicin_yes_no_id,
+		  chmt_docetaksel_yes_no_id = :chmt_docetaksel_yes_no_id,
+		  chmt_oksaliplatin_yes_no_id = :chmt_oksaliplatin_yes_no_id,
+		  chmt_other_yes_no_id = :chmt_other_yes_no_id,
 		  chmt_other_descr = :chmt_other_descr,
 		  chmt_date_start = :chmt_date_start,
 		  chmt_date_finish = :chmt_date_finish,
-		  diaganem_afterchmt_hb = :diaganem_afterchmt_hb,
-		  diaganem_afterchmt_hb_date = :diaganem_afterchmt_hb_date,
-		  diaganem_afterchmt_erythrocytes = :diaganem_afterchmt_erythrocytes,
-		  diaganem_afterchmt_lab_erythrocytes_date = :diaganem_afterchmt_lab_erythrocytes_date,
-		  epoetin_yes_no_id = :epoetin_yes_no_id,
-		  epoetin_eprex40k_dstart = :epoetin_eprex40k_dstart,
-		  epoetin_eprex40k_dfinish = :epoetin_eprex40k_dfinish,
-		  epoetin_eprex40k_trfinish_yes_no_id = :epoetin_eprex40k_trfinish_yes_no_id,
-		  epoetin_eprex40k_trfinish_cause_id = :epoetin_eprex40k_trfinish_cause_id,
-		  epoetin_eprex2k5ML_dstart = :epoetin_eprex2k5ML_dstart,
-		  epoetin_eprex2k5ML_dfinish = :epoetin_eprex2k5ML_dfinish,
-		  epoetin_eprex2k5ML_trfinish_yes_no_id = :epoetin_eprex2k5ML_trfinish_yes_no_id,
-		  epoetin_eprex2k5ML_trfinish_cause_id = :epoetin_eprex2k5ML_trfinish_cause_id,
-		  epoetin_rekormon_dstart = :epoetin_rekormon_dstart,
-		  epoetin_rekormon_dfinish = :epoetin_rekormon_dfinish,
-		  epoetin_rekormon_trfinish_yes_no_id = :epoetin_rekormon_trfinish_yes_no_id,
-		  epoetin_rekormon_trfinish_cause_id = :epoetin_rekormon_trfinish_cause_id,
-		  epoetin_other_name = :epoetin_other_name,
-		  epoetin_other_dstart = :epoetin_other_dstart,
-		  epoetin_other_dfinish = :epoetin_other_dfinish,
-		  epoetin_other_trfinish_yes_no_id = :epoetin_other_trfinish_yes_no_id,
-		  epoetin_other_trfinish_cause_id = :epoetin_other_trfinish_cause_id,
-		  ferrum_yes_no_id = :ferrum_yes_no_id,
-		  ferrum_dstart = :ferrum_dstart,
-		  ferrum_dfinish = :ferrum_dfinish,
-		  notepoetin_yes_no_id = :notepoetin_yes_no_id,
-		  notepoetin_drug1_name = :notepoetin_drug1_name,
-		  notepoetin_drug1_dstart = :notepoetin_drug1_dstart,
-		  notepoetin_drug1_dfinish = :notepoetin_drug1_dfinish,
-		  notepoetin_drug1_trfinish_yes_no_id = :notepoetin_drug1_trfinish_yes_no_id,
-		  notepoetin_drug1_trfinish_cause_id = :notepoetin_drug1_trfinish_cause_id,
-		  notepoetin_drug2_name = :notepoetin_drug2_name,
-		  notepoetin_drug2_dstart = :notepoetin_drug2_dstart,
-		  notepoetin_drug2_dfinish = :notepoetin_drug2_dfinish,
-		  notepoetin_drug2_trfinish_yes_no_id = :notepoetin_drug2_trfinish_yes_no_id,
-		  notepoetin_drug2_trfinish_cause_id = :notepoetin_drug2_trfinish_cause_id,
-		  notepoetin_drug3_name = :notepoetin_drug3_name,
-		  notepoetin_drug3_dstart = :notepoetin_drug3_dstart,
-		  notepoetin_drug3_dfinish = :notepoetin_drug3_dfinish,
-		  notepoetin_drug3_trfinish_yes_no_id = :notepoetin_drug3_trfinish_yes_no_id,
-		  notepoetin_drug3_trfinish_cause_id = :notepoetin_drug3_trfinish_cause_id,
-		  diaganem_after_correct_hb = :diaganem_after_correct_hb,
-		  diaganem_after_correct_hb_date = :diaganem_after_correct_hb_date,
-		  diaganem_after_correct_erythrocytes = :diaganem_after_correct_erythrocytes,
-		  diaganem_after_correct_lab_erythrocytes_date = :diaganem_after_correct_lab_erythrocytes_date,
-		  user = :user
+		  instr_kt_yes_no_id = :instr_kt_yes_no_id,
+		  instr_kt_date = :instr_kt_date,
+		  instr_kt_norm_yes_no_id = :instr_kt_norm_yes_no_id,
+		  instr_kt_descr = :instr_kt_descr,
+		  instr_mrt_yes_no_id = :instr_mrt_yes_no_id,
+		  instr_mrt_date = :instr_mrt_date,
+		  instr_mrt_norm_yes_no_id = :instr_mrt_norm_yes_no_id,
+		  instr_mrt_descr = :instr_mrt_descr,
+		  instr_petkt_yes_no_id = :instr_petkt_yes_no_id,
+		  instr_petkt_date = :instr_petkt_date,
+		  instr_petkt_norm_yes_no_id = :instr_petkt_norm_yes_no_id,
+		  instr_petkt_descr = :instr_petkt_descr,
+		  targeted_therapy_yes_no_id = :targeted_therapy_yes_no_id,
+		  targeted_therapy_erlotinib_yes_no_id = :targeted_therapy_erlotinib_yes_no_id,
+		  targeted_therapy_gefitinib_yes_no_id = :targeted_therapy_gefitinib_yes_no_id,
+		  targeted_therapy_cryotinib_yes_no_id = :targeted_therapy_cryotinib_yes_no_id,
+		  targeted_therapy_nivolumab_yes_no_id = :targeted_therapy_nivolumab_yes_no_id,
+		  targeted_therapy_other_yes_no_id = :targeted_therapy_other_yes_no_id,
+		  targeted_therapy_descr = :targeted_therapy_descr,
+		  side_effects_yes_no_id = :side_effects_yes_no_id,
+		  side_effects_descr = :side_effects_descr,
+		  hb_before_ct = :hb_before_ct,
+		  hb_before_ct_date = :hb_before_ct_date,
+		  erythrocytes_before_ct = :erythrocytes_before_ct,
+		  erythrocytes_before_ct_date = :erythrocytes_before_ct_date,
+		  leuc_before_ct = :leuc_before_ct,
+		  leuc_before_ct_date = :leuc_before_ct_date,
+		  tromb_before_ct = :tromb_before_ct,
+		  tromb_before_ct_date = :tromb_before_ct_date,
+		  neutr_before_ct = :neutr_before_ct,
+		  neutr_before_ct_date = :neutr_before_ct_date,
+		  gen_prot_before_ct = :gen_prot_before_ct,
+		  gen_prot_before_ct_date = :gen_prot_before_ct_date,
+		  ast_before_ct = :ast_before_ct,
+		  ast_before_ct_date = :ast_before_ct_date,
+		  alt_before_ct = :alt_before_ct,
+		  alt_before_ct_date = :alt_before_ct_date,
+		  bilirubin_before_ct = :bilirubin_before_ct,
+		  bilirubin_before_ct_date = :bilirubin_before_ct_date,
+		  creat_before_ct = :creat_before_ct,
+		  creat_before_ct_date = :creat_before_ct_date,
+		  urea_before_ct = :urea_before_ct,
+		  urea_before_ct_date = :urea_before_ct_date,
+		  neurotoxicity_yes_no_id = :neurotoxicity_yes_no_id,
+		  neurotoxicity_level_id = :neurotoxicity_level_id,
+		  skin_toxicity_yes_no_id = :skin_toxicity_yes_no_id,
+		  skin_toxicity_level_id = :skin_toxicity_level_id,
+		  user = :user 
 		WHERE 
 		  id = :id";
 		$stmt = $this->pdo->prepare ( $query );
-		$stmt->bindValue ( ':id', $entity->id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':patient_id', $entity->patient_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':visit_id', $entity->visit_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_karboplatin_id', $entity->chmt_karboplatin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_cisplatin_id', $entity->chmt_cisplatin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_ciklofosfan_id', $entity->chmt_ciklofosfan_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_paklitaksel_id', $entity->chmt_paklitaksel_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_doksorubicin_id', $entity->chmt_doksorubicin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_topotekan_id', $entity->chmt_topotekan_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_gemcitabin_id', $entity->chmt_gemcitabin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_vinorelbin_id', $entity->chmt_vinorelbin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_irinotekan_id', $entity->chmt_irinotekan_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_jetopozid_id', $entity->chmt_jetopozid_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_jepirubicin_id', $entity->chmt_jepirubicin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_docetaksel_id', $entity->chmt_docetaksel_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_oksaliplatin_id', $entity->chmt_oksaliplatin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_trabektedin_id', $entity->chmt_trabektedin_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_other_id', $entity->chmt_other_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_other_descr', $entity->chmt_other_descr, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_date_start', $entity->chmt_date_start, PDO::PARAM_STR );
-		$stmt->bindValue ( ':chmt_date_finish', $entity->chmt_date_finish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_hb', $entity->diaganem_afterchmt_hb, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_hb_date', $entity->diaganem_afterchmt_hb_date, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_erythrocytes', $entity->diaganem_afterchmt_erythrocytes, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_afterchmt_lab_erythrocytes_date', $entity->diaganem_afterchmt_lab_erythrocytes_date, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_yes_no_id', $entity->epoetin_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_dstart', $entity->epoetin_eprex40k_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_dfinish', $entity->epoetin_eprex40k_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_trfinish_yes_no_id', $entity->epoetin_eprex40k_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex40k_trfinish_cause_id', $entity->epoetin_eprex40k_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_dstart', $entity->epoetin_eprex2k5ML_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_dfinish', $entity->epoetin_eprex2k5ML_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_trfinish_yes_no_id', $entity->epoetin_eprex2k5ML_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_eprex2k5ML_trfinish_cause_id', $entity->epoetin_eprex2k5ML_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_dstart', $entity->epoetin_rekormon_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_dfinish', $entity->epoetin_rekormon_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_trfinish_yes_no_id', $entity->epoetin_rekormon_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_rekormon_trfinish_cause_id', $entity->epoetin_rekormon_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_name', $entity->epoetin_other_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_dstart', $entity->epoetin_other_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_dfinish', $entity->epoetin_other_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_trfinish_yes_no_id', $entity->epoetin_other_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':epoetin_other_trfinish_cause_id', $entity->epoetin_other_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':ferrum_yes_no_id', $entity->ferrum_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':ferrum_dstart', $entity->ferrum_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':ferrum_dfinish', $entity->ferrum_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_yes_no_id', $entity->notepoetin_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_name', $entity->notepoetin_drug1_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_dstart', $entity->notepoetin_drug1_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_dfinish', $entity->notepoetin_drug1_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_trfinish_yes_no_id', $entity->notepoetin_drug1_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug1_trfinish_cause_id', $entity->notepoetin_drug1_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_name', $entity->notepoetin_drug2_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_dstart', $entity->notepoetin_drug2_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_dfinish', $entity->notepoetin_drug2_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_trfinish_yes_no_id', $entity->notepoetin_drug2_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug2_trfinish_cause_id', $entity->notepoetin_drug2_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_name', $entity->notepoetin_drug3_name, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_dstart', $entity->notepoetin_drug3_dstart, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_dfinish', $entity->notepoetin_drug3_dfinish, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_trfinish_yes_no_id', $entity->notepoetin_drug3_trfinish_yes_no_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':notepoetin_drug3_trfinish_cause_id', $entity->notepoetin_drug3_trfinish_cause_id, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_hb', $entity->diaganem_after_correct_hb, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_hb_date', $entity->diaganem_after_correct_hb_date, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_erythrocytes', $entity->diaganem_after_correct_erythrocytes, PDO::PARAM_STR );
-		$stmt->bindValue ( ':diaganem_after_correct_lab_erythrocytes_date', $entity->diaganem_after_correct_lab_erythrocytes_date, PDO::PARAM_STR );
+		$stmt->bindValue(':id', $entity->id, PDO::PARAM_STR);
+		$stmt->bindValue(':patient_id', $entity->patient_id, PDO::PARAM_STR);
+		$stmt->bindValue(':visit_id', $entity->visit_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_karboplatin_yes_no_id', $entity->chmt_karboplatin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_cisplatin_yes_no_id', $entity->chmt_cisplatin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_ciklofosfan_yes_no_id', $entity->chmt_ciklofosfan_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_paklitaksel_yes_no_id', $entity->chmt_paklitaksel_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_doksorubicin_yes_no_id', $entity->chmt_doksorubicin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_topotekan_yes_no_id', $entity->chmt_topotekan_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_gemcitabin_yes_no_id', $entity->chmt_gemcitabin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_vinorelbin_yes_no_id', $entity->chmt_vinorelbin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_irinotekan_yes_no_id', $entity->chmt_irinotekan_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_jetopozid_yes_no_id', $entity->chmt_jetopozid_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_jepirubicin_yes_no_id', $entity->chmt_jepirubicin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_docetaksel_yes_no_id', $entity->chmt_docetaksel_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_oksaliplatin_yes_no_id', $entity->chmt_oksaliplatin_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_other_yes_no_id', $entity->chmt_other_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_other_descr', $entity->chmt_other_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_date_start', $entity->chmt_date_start, PDO::PARAM_STR);
+		$stmt->bindValue(':chmt_date_finish', $entity->chmt_date_finish, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_yes_no_id', $entity->instr_kt_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_date', $entity->instr_kt_date, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_norm_yes_no_id', $entity->instr_kt_norm_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_kt_descr', $entity->instr_kt_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_yes_no_id', $entity->instr_mrt_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_date', $entity->instr_mrt_date, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_norm_yes_no_id', $entity->instr_mrt_norm_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_mrt_descr', $entity->instr_mrt_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_yes_no_id', $entity->instr_petkt_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_date', $entity->instr_petkt_date, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_norm_yes_no_id', $entity->instr_petkt_norm_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':instr_petkt_descr', $entity->instr_petkt_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_yes_no_id', $entity->targeted_therapy_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_erlotinib_yes_no_id', $entity->targeted_therapy_erlotinib_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_gefitinib_yes_no_id', $entity->targeted_therapy_gefitinib_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_cryotinib_yes_no_id', $entity->targeted_therapy_cryotinib_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_nivolumab_yes_no_id', $entity->targeted_therapy_nivolumab_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_other_yes_no_id', $entity->targeted_therapy_other_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':targeted_therapy_descr', $entity->targeted_therapy_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':side_effects_yes_no_id', $entity->side_effects_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':side_effects_descr', $entity->side_effects_descr, PDO::PARAM_STR);
+		$stmt->bindValue(':hb_before_ct', $entity->hb_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':hb_before_ct_date', $entity->hb_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':erythrocytes_before_ct', $entity->erythrocytes_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':erythrocytes_before_ct_date', $entity->erythrocytes_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':leuc_before_ct', $entity->leuc_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':leuc_before_ct_date', $entity->leuc_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':tromb_before_ct', $entity->tromb_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':tromb_before_ct_date', $entity->tromb_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':neutr_before_ct', $entity->neutr_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':neutr_before_ct_date', $entity->neutr_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':gen_prot_before_ct', $entity->gen_prot_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':gen_prot_before_ct_date', $entity->gen_prot_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':ast_before_ct', $entity->ast_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':ast_before_ct_date', $entity->ast_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':alt_before_ct', $entity->alt_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':alt_before_ct_date', $entity->alt_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':bilirubin_before_ct', $entity->bilirubin_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':bilirubin_before_ct_date', $entity->bilirubin_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':creat_before_ct', $entity->creat_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':creat_before_ct_date', $entity->creat_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':urea_before_ct', $entity->urea_before_ct, PDO::PARAM_STR);
+		$stmt->bindValue(':urea_before_ct_date', $entity->urea_before_ct_date, PDO::PARAM_STR);
+		$stmt->bindValue(':neurotoxicity_yes_no_id', $entity->neurotoxicity_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':neurotoxicity_level_id', $entity->neurotoxicity_level_id, PDO::PARAM_STR);
+		$stmt->bindValue(':skin_toxicity_yes_no_id', $entity->skin_toxicity_yes_no_id, PDO::PARAM_STR);
+		$stmt->bindValue(':skin_toxicity_level_id', $entity->skin_toxicity_level_id, PDO::PARAM_STR);
 		$stmt->bindValue ( ':user', $this->user, PDO::PARAM_STR );
 		// echo "<br>".$stmt->queryString . "<br>";
 		try {

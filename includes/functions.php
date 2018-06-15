@@ -131,10 +131,8 @@ function open_tpl_to_view_therapy($request, $smarty, $dao, $do="view"){
 	}else{
 		$exist = $dao->isVisitExist($request["patient_id"], $request["visit_id"]);
 	}
-	
 	if($exist){
 		$therapy =$dao->getTherapyByPatientAndVisit($request["patient_id"], $request["visit_id"]);
-		//var_dump($therapy);
 	}else{	
 		//echo "<h1>12345</h1>";
 		$do = 'edit';

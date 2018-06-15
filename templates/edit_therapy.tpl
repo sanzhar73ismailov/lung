@@ -150,8 +150,9 @@
 					<tr>
 						<td class='td_label_form'>КТ</td>
 						<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_kt_yes_no_id" size="50" value="1" {if isset($object->instr_kt_yes_no_id) && $object->instr_kt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_kt_yes_no_id" size="50" value="0" {if isset($object->instr_kt_yes_no_id) && $object->instr_kt_yes_no_id == 0} checked {/if}/> Дата
-							<input type="text" {$readonly} name="instr_kt_date" id="instr_kt_date" size="10" value="{if isset($object->instr_kt_date)}{$object->instr_kt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_kt_norm_yes_no_id) &&
-							$object->instr_kt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_kt_norm_yes_no_id) && $object->instr_kt_norm_yes_no_id == 0} checked {/if}/>
+							<input type="text" {$readonly} name="instr_kt_date" id="instr_kt_date" size="10" value="{if isset($object->instr_kt_date)}{$object->instr_kt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> 
+							Норма <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_kt_norm_yes_no_id) &&	$object->instr_kt_norm_yes_no_id == 1} checked {/if}/> 
+							Патология <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_kt_norm_yes_no_id) && $object->instr_kt_norm_yes_no_id == 0} checked {/if}/>
 						</td>
 					</tr>
 
