@@ -1,3 +1,7 @@
+
+ALTER TABLE `lung_therapy` ADD INDEX `visit_id` (`visit_id`);
+ALTER TABLE `lung_therapy` ADD UNIQUE `patient_id` (`patient_id`, `visit_id`);
+
 CREATE TABLE `lung_dic_list` (
   `id` VARCHAR(50) COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'Идентификатор справочника',
   `name` VARCHAR(100) COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'Название справочника',
@@ -230,6 +234,7 @@ CREATE TABLE `lung_patient` (
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `lung_patient` MODIFY COLUMN `patient_if_died_cause_id` INTEGER(11) DEFAULT '-1' COMMENT 'Причина смерти';
 
 CREATE TABLE `lung_therapy` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,

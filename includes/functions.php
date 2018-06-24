@@ -68,13 +68,13 @@ function open_tpl_to_view_patient($id, $smarty, $dao, $do="view"){
 		$smarty->assign('disabled',"");
 		$smarty->assign('class',"");
 
-		$smarty->assign('class_req_input',"class='req_input'");
+		$smarty->assign('class_req_input',"required class='req_input'");
 		$smarty->assign('edit',true);
 	}else{
 		$smarty->assign('readonly',"readonly='readonly'");
 		$smarty->assign('disabled',"disabled='disabled'");
 		$smarty->assign('edit',false);
-		$smarty->assign('class_req_input',"class='read_only_input'");
+		$smarty->assign('class_req_input',"required class='read_only_input'");
 		$smarty->assign('class',"class='read_only_input'");
 	}
 	$smarty->assign('investigation_exist', $investigation != null ? true : false);

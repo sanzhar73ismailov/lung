@@ -5,25 +5,54 @@
 <link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
 <title>{$title}</title> {include file="js_include.tpl"}
 <script type="text/javascript">
-/*
-$(function() {
-   
-    var availableDoctorTags = [
-                               {$doctorNames}
-                         ];
-    $( "#doctor" ).autocomplete({
-        source: availableDoctorTags
-      });
-    var availableHospitalTags = [
-                               {$hospitalNames}
-                         ];
-    $( "#hospital" ).autocomplete({
-        source: availableHospitalTags
-      });
-    
-  });
-  */
-  </script>
+
+function dependentElsRequiredOn(instrBase){
+	//дата проведения
+	  requiredOn(instrBase + "_date");
+	//радиокнопки - норма/патология
+	 requiredRadiosOn(instrBase + "_norm_yes_no_id");
+	//заключение текстареа
+	requiredOn(instrBase + "_descr");
+ }
+ 
+function dependentElsRequiredOff(instrBase){
+	//дата проведения
+	  requiredOff(instrBase + "_date");
+	//радиокнопки - норма/патология
+	 requiredRadiosOff(instrBase + "_norm_yes_no_id");
+	//заключение текстареа
+	requiredOff(instrBase + "_descr");
+ }
+
+function instrRadiotherapyDependentElsRequiredOn(){
+    var inputIds = ["instr_radiotherapy_type", "instr_radiotherapy_start_date", "instr_radiotherapy_end_date"];
+    for(var i = 0; i < inputIds.length; i++){
+	  	requiredOn(inputIds[i]);
+	 }
+}
+
+function instrRadiotherapyDependentElsRequiredOff(){
+    var inputIds = ["instr_radiotherapy_type", "instr_radiotherapy_start_date", "instr_radiotherapy_end_date"];
+    for(var i = 0; i < inputIds.length; i++){
+	  	requiredOff(inputIds[i]);
+	 }
+}
+
+function statusDied(e){
+	//var e = document.getElementById("patient_status_id");
+	var status = e.options[e.selectedIndex].text;
+	var inputIds = ["patient_if_died_date", "patient_if_died_cause_id", "patient_if_died_cause_descr"];
+	for(var i = 0; i < inputIds.length; i++){
+		if(status == 'умер'){
+		  	requiredOn(inputIds[i]);
+		}else{
+			requiredOff(inputIds[i]);
+		}
+	}
+	
+}
+	
+</script>
 </head>
 <body>
 
@@ -35,7 +64,7 @@ $(function() {
 				{include file="panel.tpl"}
 				<div class="center_title">Пациент</div>
 
-				<form method="post" action="edit.php" onsubmit="return checkform(this)">
+				<form method="post" action="edit.php">
 					<input type="hidden" name="do" value="save" /> <input type="hidden" name="entity" value="{$entity}" />
 
 					<table class="form">
@@ -84,33 +113,33 @@ $(function() {
 						<tr>
 							<td>Пациент 18 лет и старше, с впервые<br />в жизни выявленным НМРЛ в 2015-2016 г.г. (да, нет)
 							</td>
-							<td>Да <input required type="radio" {$disabled} name="inclusion_criteria_years_more18_yes_no_id" value="1" {if isset($object->inclusion_criteria_years_more18_yes_no_id) && $object->inclusion_criteria_years_more18_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_years_more18_yes_no_id" value="0" {if isset($object->inclusion_criteria_years_more18_yes_no_id)
+							<td>Да <input {$class_req_input} type="radio" {$disabled} name="inclusion_criteria_years_more18_yes_no_id" value="1" {if isset($object->inclusion_criteria_years_more18_yes_no_id) && $object->inclusion_criteria_years_more18_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_years_more18_yes_no_id" value="0" {if isset($object->inclusion_criteria_years_more18_yes_no_id)
 								&& $object->inclusion_criteria_years_more18_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 						<tr>
 							<td>Диагноз НМРЛ подтвержден гистологически (да, нет)</td>
-							<td>Да <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_histo_yes_no_id" value="1" {if isset($object->inclusion_criteria_diag_conf_histo_yes_no_id) && $object->inclusion_criteria_diag_conf_histo_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_histo_yes_no_id" value="0" {if isset($object->inclusion_criteria_diag_conf_histo_yes_no_id)
+							<td>Да <input {$class_req_input} type="radio" {$disabled} name="inclusion_criteria_diag_conf_histo_yes_no_id" value="1" {if isset($object->inclusion_criteria_diag_conf_histo_yes_no_id) && $object->inclusion_criteria_diag_conf_histo_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_histo_yes_no_id" value="0" {if isset($object->inclusion_criteria_diag_conf_histo_yes_no_id)
 								&& $object->inclusion_criteria_diag_conf_histo_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 						<tr>
 							<td>Диагноз НМРЛ подтвержден цитологически (да, нет)</td>
-							<td>Да <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_cyto_yes_no_id" value="1" {if isset($object->inclusion_criteria_diag_conf_cyto_yes_no_id) && $object->inclusion_criteria_diag_conf_cyto_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_cyto_yes_no_id" value="0" {if isset($object->inclusion_criteria_diag_conf_cyto_yes_no_id)
+							<td>Да <input {$class_req_input} type="radio" {$disabled} name="inclusion_criteria_diag_conf_cyto_yes_no_id" value="1" {if isset($object->inclusion_criteria_diag_conf_cyto_yes_no_id) && $object->inclusion_criteria_diag_conf_cyto_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_cyto_yes_no_id" value="0" {if isset($object->inclusion_criteria_diag_conf_cyto_yes_no_id)
 								&& $object->inclusion_criteria_diag_conf_cyto_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 						<tr>
 							<td>Диагноз выставлен на основе<br />клинико-рентгенологических данных (да, нет)
 							</td>
-							<td>Да <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_clin_radio_yes_no_id" value="1" {if isset($object->inclusion_criteria_diag_conf_clin_radio_yes_no_id) && $object->inclusion_criteria_diag_conf_clin_radio_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_clin_radio_yes_no_id" value="0" {if
+							<td>Да <input {$class_req_input} type="radio" {$disabled} name="inclusion_criteria_diag_conf_clin_radio_yes_no_id" value="1" {if isset($object->inclusion_criteria_diag_conf_clin_radio_yes_no_id) && $object->inclusion_criteria_diag_conf_clin_radio_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_diag_conf_clin_radio_yes_no_id" value="0" {if
 								isset($object->inclusion_criteria_diag_conf_clin_radio_yes_no_id) && $object->inclusion_criteria_diag_conf_clin_radio_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 						<tr>
 							<td>Пациент, получавший любой вид <br />противоопухолевой терапии в 2015-2017 г.г. <br />(хирургический, химиотерапевтический, таргетрная терапия, лучевая терапия) (да, нет)
 							</td>
-							<td>Да <input required type="radio" {$disabled} name="inclusion_criteria_got_antitumor_therapy_yes_no_id" value="1" {if isset($object->inclusion_criteria_got_antitumor_therapy_yes_no_id) && $object->inclusion_criteria_got_antitumor_therapy_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_got_antitumor_therapy_yes_no_id" value="0" {if
+							<td>Да <input {$class_req_input} type="radio" {$disabled} name="inclusion_criteria_got_antitumor_therapy_yes_no_id" value="1" {if isset($object->inclusion_criteria_got_antitumor_therapy_yes_no_id) && $object->inclusion_criteria_got_antitumor_therapy_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="inclusion_criteria_got_antitumor_therapy_yes_no_id" value="0" {if
 								isset($object->inclusion_criteria_got_antitumor_therapy_yes_no_id) && $object->inclusion_criteria_got_antitumor_therapy_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
@@ -120,7 +149,7 @@ $(function() {
 						<tr>
 							<td>Пациенты с впервые выявленным НМРЛ,<br />но не получившие ни один из видов противоопухолевой терапии<br />из-за наличия сопутствующей патологии или взятые на учет посмертно (да, нет)
 							</td>
-							<td>Да <input required type="radio" {$disabled} name="exclusion_criteria_not_got_antitumor_therapy_yes_no_id" value="1" {if isset($object->exclusion_criteria_not_got_antitumor_therapy_yes_no_id) && $object->exclusion_criteria_not_got_antitumor_therapy_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="exclusion_criteria_not_got_antitumor_therapy_yes_no_id"
+							<td>Да <input {$class_req_input} type="radio" {$disabled} name="exclusion_criteria_not_got_antitumor_therapy_yes_no_id" value="1" {if isset($object->exclusion_criteria_not_got_antitumor_therapy_yes_no_id) && $object->exclusion_criteria_not_got_antitumor_therapy_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="exclusion_criteria_not_got_antitumor_therapy_yes_no_id"
 								value="0" {if isset($object->exclusion_criteria_not_got_antitumor_therapy_yes_no_id) && $object->exclusion_criteria_not_got_antitumor_therapy_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
@@ -159,7 +188,7 @@ $(function() {
 						</tr>
 						<tr>
 							<td>Цитологическое заключение</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="cytologic_conclusion" id="cytologic_conclusion">{$object->cytologic_conclusion}</textarea></td>
+							<td><textarea {$class_req_input} {$disabled} rows="3" cols="45" name="cytologic_conclusion" id="cytologic_conclusion">{$object->cytologic_conclusion}</textarea></td>
 						</tr>
 						<tr>
 							<td>Гистологический тип опухоли</td>
@@ -181,20 +210,20 @@ $(function() {
 						</tr>
 						<tr>
 							<td>Иммуногистохимическое исследование: описание</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="immunohistochemical_study_descr" id="immunohistochemical_study_descr">{$object->immunohistochemical_study_descr}</textarea></td>
+							<td><textarea {$class_req_input} {$disabled} rows="3" cols="45" name="immunohistochemical_study_descr" id="immunohistochemical_study_descr">{$object->immunohistochemical_study_descr}</textarea></td>
 						</tr>
 						<tr>
 							<td>Генетические исследования (да, нет)</td>
-							<td>Да <input required type="radio" {$disabled} name="genetic_study_yes_no_id" value="1" {if isset($object->genetic_study_yes_no_id) && $object->genetic_study_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="genetic_study_yes_no_id" value="0" {if isset($object->genetic_study_yes_no_id) && $object->genetic_study_yes_no_id == 0} checked {/if}/>
+							<td>Да <input $class_req_input} type="radio" {$disabled} name="genetic_study_yes_no_id" value="1" {if isset($object->genetic_study_yes_no_id) && $object->genetic_study_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="genetic_study_yes_no_id" value="0" {if isset($object->genetic_study_yes_no_id) && $object->genetic_study_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 						<tr>
 							<td>FISH результат</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="genetic_study_fish" id="genetic_study_fish">{$object->genetic_study_fish}</textarea></td>
+							<td><textarea {$class_req_input} {$disabled} rows="3" cols="45" name="genetic_study_fish" id="genetic_study_fish">{$object->genetic_study_fish}</textarea></td>
 						</tr>
 						<tr>
 							<td>ПЦР результат</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="genetic_study_pcr" id="genetic_study_pcr">{$object->genetic_study_pcr}</textarea></td>
+							<td><textarea {$class_req_input} {$disabled} rows="3" cols="45" name="genetic_study_pcr" id="genetic_study_pcr">{$object->genetic_study_pcr}</textarea></td>
 						</tr>
 						<td>Стадия заболевания по системе TNM</td>
 						<td>
@@ -238,39 +267,43 @@ $(function() {
 
 						<tr>
 							<td class='td_label_form'>КТ</td>
-							<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_kt_yes_no_id" size="50" value="1" {if isset($object->instr_kt_yes_no_id) && $object->instr_kt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_kt_yes_no_id" size="50" value="0" {if isset($object->instr_kt_yes_no_id) && $object->instr_kt_yes_no_id == 0} checked {/if}/> Дата
-								<input type="text" {$readonly} name="instr_kt_date" id="instr_kt_date" size="10" value="{if isset($object->instr_kt_date)}{$object->instr_kt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_kt_norm_yes_no_id) &&
-								$object->instr_kt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_kt_norm_yes_no_id) && $object->instr_kt_norm_yes_no_id == 0} checked {/if}/>
+							<td>Да <input onclick="dependentElsRequiredOn('instr_kt');" {$class_req_input} type="radio" {$disabled} name="instr_kt_yes_no_id" size="50" value="1" {if isset($object->instr_kt_yes_no_id) && $object->instr_kt_yes_no_id == 1} checked {/if}/>
+							Нет<input onclick="dependentElsRequiredOff('instr_kt');" {$class_req_input} type="radio" {$disabled} name="instr_kt_yes_no_id" size="50" value="0" {if isset($object->instr_kt_yes_no_id) && $object->instr_kt_yes_no_id == 0} checked {/if}/> 
+							Дата <input type="text" {$readonly} name="instr_kt_date" id="instr_kt_date" size="10" value="{if isset($object->instr_kt_date)}{$object->instr_kt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> 
+							Норма <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_kt_norm_yes_no_id) && $object->instr_kt_norm_yes_no_id == 1} checked {/if}/> 
+							Патология <input type="radio" {$disabled} name="instr_kt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_kt_norm_yes_no_id) && $object->instr_kt_norm_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 
 						<tr>
 							<td class='td_label_form'>КТ Заключение</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="instr_kt_descr">{$object->instr_kt_descr}</textarea></td>
+							<td><textarea {$disabled} rows="3" cols="45" id="instr_kt_descr" name="instr_kt_descr">{$object->instr_kt_descr}</textarea></td>
 						</tr>
 
 						<tr>
 							<td class='td_label_form'>МРТ</td>
-							<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_mrt_yes_no_id" size="50" value="1" {if isset($object->instr_mrt_yes_no_id) && $object->instr_mrt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_mrt_yes_no_id" size="50" value="0" {if isset($object->instr_mrt_yes_no_id) && $object->instr_mrt_yes_no_id == 0} checked
+							<td>Да <input onclick="dependentElsRequiredOn('instr_mrt');" {$class_req_input} type="radio" {$disabled} name="instr_mrt_yes_no_id" size="50" value="1" {if isset($object->instr_mrt_yes_no_id) && $object->instr_mrt_yes_no_id == 1} checked {/if}/>
+							Нет <input onclick="dependentElsRequiredOff('instr_mrt');" {$class_req_input} type="radio" {$disabled} name="instr_mrt_yes_no_id" size="50" value="0" {if isset($object->instr_mrt_yes_no_id) && $object->instr_mrt_yes_no_id == 0} checked
 								{/if}/> Дата <input type="text" {$readonly} name="instr_mrt_date" id="instr_mrt_date" size="10" value="{if isset($object->instr_mrt_date)}{$object->instr_mrt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input type="radio" {$disabled} name="instr_mrt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_mrt_norm_yes_no_id)
 								&& $object->instr_mrt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_mrt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_mrt_norm_yes_no_id) && $object->instr_mrt_norm_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 						<tr>
 							<td class='td_label_form'>МРТ Заключение</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="instr_mrt_descr">{$object->instr_mrt_descr}</textarea></td>
+							<td><textarea {$disabled} rows="3" cols="45" id="instr_mrt_descr" name="instr_mrt_descr">{$object->instr_mrt_descr}</textarea></td>
 						</tr>
 
 						<tr>
 							<td class='td_label_form'>ПЭТ-КТ</td>
-							<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="1" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="0" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 0}
+							<td>Да <input onclick="dependentElsRequiredOn('instr_petkt');" {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="1" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 1} checked {/if}/>
+							Нет <input onclick="dependentElsRequiredOff('instr_petkt');" {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="0" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 0}
 								checked {/if}/> Дата <input type="text" {$readonly} name="instr_petkt_date" id="instr_petkt_date" size="10" value="{if isset($object->instr_petkt_date)}{$object->instr_petkt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input type="radio" {$disabled} name="instr_petkt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_petkt_norm_yes_no_id)
 								&& $object->instr_petkt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_petkt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_petkt_norm_yes_no_id) && $object->instr_petkt_norm_yes_no_id == 0} checked {/if}/>
 							</td>
 						</tr>
 						<tr>
 							<td class='td_label_form'>ПЭТ-КТ Заключение</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="instr_petkt_descr">{$object->instr_petkt_descr}</textarea></td>
+							<td><textarea {$disabled} rows="3" cols="45" id="instr_petkt_descr" name="instr_petkt_descr">{$object->instr_petkt_descr}</textarea></td>
 						</tr>
 
 						<tr class="tr_open_close">
@@ -278,19 +311,20 @@ $(function() {
 						</tr>
 						<tr>
 							<td>Лучевая терапия да/нет</td>
-							<td>Да <input required type="radio" {$disabled} name="instr_radiotherapy_yes_no_id" value="1" {if isset($object->instr_radiotherapy_yes_no_id) && $object->instr_radiotherapy_yes_no_id == 1} checked {/if}/> Нет <input required type="radio" {$disabled} name="instr_radiotherapy_yes_no_id" value="0" {if isset($object->instr_radiotherapy_yes_no_id) && $object->instr_radiotherapy_yes_no_id == 0}
+							<td>Да <input onclick="instrRadiotherapyDependentElsRequiredOn();" required type="radio" {$disabled} name="instr_radiotherapy_yes_no_id" value="1" {if isset($object->instr_radiotherapy_yes_no_id) && $object->instr_radiotherapy_yes_no_id == 1} checked {/if}/> 
+							Нет <input onclick="instrRadiotherapyDependentElsRequiredOff();" required type="radio" {$disabled} name="instr_radiotherapy_yes_no_id" value="0" {if isset($object->instr_radiotherapy_yes_no_id) && $object->instr_radiotherapy_yes_no_id == 0}
 								checked {/if}/>
 							</td>
 						</tr>
 
 						<tr>
 							<td>Лучевая терапия: вид, РОД, СОД и пр.</td>
-							<td><input id="instr_radiotherapy_type" {$class_req_input} type="text" {$readonly} name="instr_radiotherapy_type" size="50" value="{$object->instr_radiotherapy_type}" /></td>
+							<td><input id="instr_radiotherapy_type" type="text" {$readonly} id="instr_radiotherapy_type" name="instr_radiotherapy_type" size="50" value="{$object->instr_radiotherapy_type}" /></td>
 						</tr>
 						<tr>
 							<td>Лучевая терапия: даты</td>
-							<td>Дата начала <input type="text" {$readonly} name="instr_radiotherapy_start_date" id="instr_radiotherapy_start_date" size="10" value="{if isset($object->instr_radiotherapy_start_date)}{$object->instr_radiotherapy_start_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Дата завершения<input type="text"
-								{$readonly} name="instr_radiotherapy_end_date" id="instr_radiotherapy_end_date" size="10" value="{if isset($object->instr_radiotherapy_end_date)}{$object->instr_radiotherapy_end_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" />
+							<td>Дата начала <input type="text" {$readonly} name="instr_radiotherapy_start_date" id="instr_radiotherapy_start_date" size="10" value="{if isset($object->instr_radiotherapy_start_date)}{$object->instr_radiotherapy_start_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> 
+							Дата завершения<input type="text" {$readonly} name="instr_radiotherapy_end_date" id="instr_radiotherapy_end_date" size="10" value="{if isset($object->instr_radiotherapy_end_date)}{$object->instr_radiotherapy_end_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" />
 							</td>
 						</tr>
 						<tr class="tr_open_close">
@@ -298,7 +332,8 @@ $(function() {
 						</tr>
 						<tr>
 							<td class='td_label_form'>КТ после ЛТ</td>
-							<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_kt_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_kt_yes_no_id) && $object->instr_radiotherapy_kt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_kt_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_kt_yes_no_id)
+							<td>Да <input onclick="dependentElsRequiredOn('instr_radiotherapy_kt');" {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_kt_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_kt_yes_no_id) && $object->instr_radiotherapy_kt_yes_no_id == 1} checked {/if}/>
+							Нет <input onclick="dependentElsRequiredOff('instr_radiotherapy_kt');" {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_kt_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_kt_yes_no_id)
 								&& $object->instr_radiotherapy_kt_yes_no_id == 0} checked {/if}/> Дата <input type="text" {$readonly} name="instr_radiotherapy_kt_date" id="instr_radiotherapy_kt_date" size="10" value="{if isset($object->instr_radiotherapy_kt_date)}{$object->instr_radiotherapy_kt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input type="radio"
 								{$disabled} name="instr_radiotherapy_kt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_kt_norm_yes_no_id) && $object->instr_radiotherapy_kt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_radiotherapy_kt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_kt_norm_yes_no_id) &&
 								$object->instr_radiotherapy_kt_norm_yes_no_id == 0} checked {/if}/>
@@ -306,12 +341,13 @@ $(function() {
 						</tr>
 						<tr>
 							<td class='td_label_form'>КТ Заключение</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="instr_radiotherapy_kt_descr">{$object->instr_radiotherapy_kt_descr}</textarea></td>
+							<td><textarea {$disabled} rows="3" cols="45" id="instr_radiotherapy_kt_descr" name="instr_radiotherapy_kt_descr">{$object->instr_radiotherapy_kt_descr}</textarea></td>
 						</tr>
 
 						<tr>
 							<td class='td_label_form'>МРТ после ЛТ</td>
-							<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_mrt_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_mrt_yes_no_id) && $object->instr_radiotherapy_mrt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_mrt_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_mrt_yes_no_id)
+							<td>Да <input onclick="dependentElsRequiredOn('instr_radiotherapy_mrt');" {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_mrt_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_mrt_yes_no_id) && $object->instr_radiotherapy_mrt_yes_no_id == 1} checked {/if}/>
+							Нет <input onclick="dependentElsRequiredOff('instr_radiotherapy_mrt');" {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_mrt_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_mrt_yes_no_id)
 								&& $object->instr_radiotherapy_mrt_yes_no_id == 0} checked {/if}/> Дата <input type="text" {$readonly} name="instr_radiotherapy_mrt_date" id="instr_radiotherapy_mrt_date" size="10" value="{if isset($object->instr_radiotherapy_mrt_date)}{$object->instr_radiotherapy_mrt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input
 								type="radio" {$disabled} name="instr_radiotherapy_mrt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_mrt_norm_yes_no_id) && $object->instr_radiotherapy_mrt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_radiotherapy_mrt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_mrt_norm_yes_no_id) &&
 								$object->instr_radiotherapy_mrt_norm_yes_no_id == 0} checked {/if}/>
@@ -319,11 +355,12 @@ $(function() {
 						</tr>
 						<tr>
 							<td class='td_label_form'>МРТ Заключение</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="instr_radiotherapy_mrt_descr">{$object->instr_radiotherapy_mrt_descr}</textarea></td>
+							<td><textarea {$disabled} rows="3" cols="45" id="instr_radiotherapy_mrt_descr" name="instr_radiotherapy_mrt_descr">{$object->instr_radiotherapy_mrt_descr}</textarea></td>
 						</tr>
 						<tr>
 							<td class='td_label_form'>ПЭТ-КТ после ЛТ</td>
-							<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_petkt_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_petkt_yes_no_id) && $object->instr_radiotherapy_petkt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_petkt_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_petkt_yes_no_id)
+							<td>Да <input onclick="dependentElsRequiredOn('instr_radiotherapy_petkt');" {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_petkt_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_petkt_yes_no_id) && $object->instr_radiotherapy_petkt_yes_no_id == 1} checked {/if}/>
+							Нет <input onclick="dependentElsRequiredOff('instr_radiotherapy_petkt');" {$class_req_input} type="radio" {$disabled} name="instr_radiotherapy_petkt_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_petkt_yes_no_id)
 								&& $object->instr_radiotherapy_petkt_yes_no_id == 0} checked {/if}/> Дата <input type="text" {$readonly} name="instr_radiotherapy_petkt_date" id="instr_radiotherapy_petkt_date" size="10" value="{if isset($object->instr_radiotherapy_petkt_date)}{$object->instr_radiotherapy_petkt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input
 								type="radio" {$disabled} name="instr_radiotherapy_petkt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_radiotherapy_petkt_norm_yes_no_id) && $object->instr_radiotherapy_petkt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_radiotherapy_petkt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_radiotherapy_petkt_norm_yes_no_id)
 								&& $object->instr_radiotherapy_petkt_norm_yes_no_id == 0} checked {/if}/>
@@ -331,7 +368,7 @@ $(function() {
 						</tr>
 						<tr>
 							<td class='td_label_form'>КТ Заключение</td>
-							<td><textarea {$disabled} rows="3" cols="45" name="instr_radiotherapy_petkt_descr">{$object->instr_radiotherapy_petkt_descr}</textarea></td>
+							<td><textarea {$disabled} rows="3" cols="45" id="instr_radiotherapy_petkt_descr" name="instr_radiotherapy_petkt_descr">{$object->instr_radiotherapy_petkt_descr}</textarea></td>
 						</tr>
 
 						<tr class="tr_open_close">
@@ -343,7 +380,7 @@ $(function() {
 						</tr>
 						<tr>
 							<td>Статус пациента на момент завершения исследования</td>
-							<td><select {$class_req_input} {$disabled} name="patient_status_id">
+							<td><select onchange="statusDied(this);" {$class_req_input} {$disabled} name="patient_status_id">
 									<option></option> {foreach $patient_status_vals as $item}
 									<option {if $item->id == $object->patient_status_id} selected="selected" {/if} value="{$item->id}">{$item->value}</option> {/foreach}
 							</select></td>
@@ -354,14 +391,14 @@ $(function() {
 						</tr>
 						<tr>
 							<td>Причина смерти</td>
-							<td><select {$class_req_input} {$disabled} name="patient_if_died_cause_id">
+							<td><select {$disabled} name="patient_if_died_cause_id" id="patient_if_died_cause_id">
 									<option></option> {foreach $patient_if_died_cause_vals as $item}
 									<option {if $item->id == $object->patient_if_died_cause_id} selected="selected" {/if} value="{$item->id}">{$item->value}</option> {/foreach}
 							</select></td>
 						</tr>
 						<tr>
 							<td>Причина смерти, если другие</td>
-							<td><input {$class_req_input} type="text" {$readonly} name="patient_if_died_cause_descr" size="50" value="{$object->patient_if_died_cause_descr}" /></td>
+							<td><input type="text" {$readonly} name="patient_if_died_cause_descr" id="patient_if_died_cause_descr" size="50" value="{$object->patient_if_died_cause_descr}" /></td>
 						</tr>
 
 

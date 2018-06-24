@@ -696,8 +696,8 @@ FROM
 		if(!isset($request[$attr])){
 			if(endsWithId($attr))
 				return '-1';
-				else
-					return null;
+			else
+				return null;
 		}
 		return $request[$attr];
 	}
@@ -734,15 +734,15 @@ FROM
 		$entity->diag_cancer_ecog_status_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['diag_cancer_ecog_status_id'] );
 		$entity->instr_kt_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_kt_yes_no_id'] );
 		$entity->instr_kt_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_kt_date'] ) );
-		$entity->instr_kt_norm_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_kt_norm_yes_no_id'] );
+		$entity->instr_kt_norm_yes_no_id = $this->getValFromRequest ( $request, 'instr_kt_norm_yes_no_id');
 		$entity->instr_kt_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_kt_descr'] );
 		$entity->instr_mrt_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_mrt_yes_no_id'] );
 		$entity->instr_mrt_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_mrt_date'] ) );
-		$entity->instr_mrt_norm_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_mrt_norm_yes_no_id'] );
+		$entity->instr_mrt_norm_yes_no_id = $this->getValFromRequest ( $request, 'instr_mrt_norm_yes_no_id' );
 		$entity->instr_mrt_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_mrt_descr'] );
 		$entity->instr_petkt_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_petkt_yes_no_id'] );
 		$entity->instr_petkt_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_petkt_date'] ) );
-		$entity->instr_petkt_norm_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_petkt_norm_yes_no_id'] );
+		$entity->instr_petkt_norm_yes_no_id = $this->getValFromRequest ( $request, 'instr_petkt_norm_yes_no_id' );
 		$entity->instr_petkt_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_petkt_descr'] );
 		$entity->instr_radiotherapy_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_yes_no_id'] );
 		$entity->instr_radiotherapy_type = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_type'] );
@@ -750,15 +750,15 @@ FROM
 		$entity->instr_radiotherapy_end_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_end_date'] ) );
 		$entity->instr_radiotherapy_kt_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_kt_yes_no_id'] );
 		$entity->instr_radiotherapy_kt_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_kt_date'] ) );
-		$entity->instr_radiotherapy_kt_norm_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_kt_norm_yes_no_id'] );
+		$entity->instr_radiotherapy_kt_norm_yes_no_id = $this->getValFromRequest ( $request, 'instr_radiotherapy_kt_norm_yes_no_id' );
 		$entity->instr_radiotherapy_kt_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_kt_descr'] );
 		$entity->instr_radiotherapy_mrt_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_mrt_yes_no_id'] );
 		$entity->instr_radiotherapy_mrt_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_mrt_date'] ) );
-		$entity->instr_radiotherapy_mrt_norm_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_mrt_norm_yes_no_id'] );
+		$entity->instr_radiotherapy_mrt_norm_yes_no_id = $this->getValFromRequest ( $request, 'instr_radiotherapy_mrt_norm_yes_no_id' );
 		$entity->instr_radiotherapy_mrt_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_mrt_descr'] );
 		$entity->instr_radiotherapy_petkt_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_petkt_yes_no_id'] );
 		$entity->instr_radiotherapy_petkt_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_petkt_date'] ) );
-		$entity->instr_radiotherapy_petkt_norm_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_petkt_norm_yes_no_id'] );
+		$entity->instr_radiotherapy_petkt_norm_yes_no_id = $this->getValFromRequest ( $request, 'instr_radiotherapy_petkt_norm_yes_no_id' );
 		$entity->instr_radiotherapy_petkt_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_petkt_descr'] );
 		$entity->patient_status_last_visit_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['patient_status_last_visit_date'] ) );
 		$entity->patient_status_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['patient_status_id'] );
