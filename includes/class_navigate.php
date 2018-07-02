@@ -143,8 +143,14 @@ class ListNavigate extends AbstractNavigate{
 		$this->title = "Список пациентов";
 		$this->template = 'list.tpl';
 		$this->message = "До встречи!";
-		if($this->authorized){
-			$this->smartyArray['patients'] = $dao->getPatients();
+		//var_dump($_SESSION["user"]);
+		
+		if ($this->authorized){
+			if($_SESSION["user"]["role_id"] == "investigator"){
+				$this->smartyArray['patients'] = $dao->getPatientsByUser($_SESSION["user"]["username_email"]);
+			}else{
+				$this->smartyArray['patients'] = $dao->getPatients();
+			}
 		}
 	}
 }

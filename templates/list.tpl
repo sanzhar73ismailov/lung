@@ -38,7 +38,10 @@ $(document).ready(function()
 			<th>ХТ 4</th>
 			<th>ХТ 5</th>
 			<th>ХТ 6</th>
-			<th></th>
+			<th>ХТ 7</th>
+			<th>ХТ 8</th>
+			<th>ХТ 9</th>
+			<th>ХТ 10</th>
 		</tr>
 	</thead>
 	<tbody>

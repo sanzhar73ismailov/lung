@@ -65,7 +65,7 @@ class Patient extends Entity{
 	public $patient_if_died_cause_descr;
 	public $user;
 	public $insert_date;
-	public $visits = array(1=>false, 2=>false, 3=>false ,4=>false, 5=>false, 6=>false); // массив визитов ключ - номер визита, значение - проводили (true) или нет (false) до этого
+	public $visits = array(1=>false, 2=>false, 3=>false ,4=>false, 5=>false, 6=>false, 7=>false, 8=>false, 9=>false, 10=>false); // массив визитов ключ - номер визита, значение - проводили (true) или нет (false) до этого
  
 	public  function set_date_birth($date_birth){
 		$this->date_birth = $date_birth;

@@ -17,6 +17,8 @@ class User{
 	public	$date_birth;
 	public	$project;
 	public	$comments;
+	public	$role_id;
+	public	$hospital_id;
 
 }
 

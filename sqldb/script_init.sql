@@ -152,6 +152,10 @@ INSERT INTO `lung_user` (`id`, `username_email`, `password`, `active`, `last_nam
 
 COMMIT;
 
+ALTER TABLE `lung_user` ADD COLUMN `role_id` VARCHAR(20) DEFAULT NULL COMMENT 'Роль пользователя' AFTER `comments`;
+ALTER TABLE `lung_user` ADD COLUMN `hospital_id` INTEGER(11) DEFAULT NULL COMMENT 'Мед центр (сайт), к которому относится пользователь (в случае, если роль investigator)' AFTER `role_id`;
+commit;
+
 
 CREATE TABLE `lung_patient` (
   `id` INTEGER(11) NOT NULL AUTO_INCREMENT,

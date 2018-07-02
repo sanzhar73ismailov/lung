@@ -10,8 +10,8 @@ class Dao {
 	private $user;
 	function __construct() {
 		$this->connect ();
-		// $this->user = $_SESSION["user"]['username_email'];
-		$this->user = "test_user";
+		$this->user = $_SESSION["user"]['username_email'];
+		//$this->user = "test_user";
 	}
 	function __destruct() {
 		// $this->pdo = null;
@@ -105,8 +105,16 @@ class Dao {
 		return $dic;
 	}
 	public function getPatients() {
+		return $this->getPatientsByUser(null);
+	}
+	
+	public function getPatientsByUser($user = null) {
 		$results = array ();
-		$query = "SELECT *  FROM " . DB_PREFIX . "patient p";
+		$where = "";
+		if($user != null){
+			$where = " WHERE user='$user'";
+		}
+		$query = "SELECT *  FROM " . DB_PREFIX . "patient p" . $where;
 		/*
 		 * DATE_FORMAT(p.date_birth,'%d/%m/%Y') as date_birth,
 		 * DATE_FORMAT(p.insert_date,'%d/%m/%Y') as insert_date
@@ -130,6 +138,7 @@ class Dao {
 		
 		return $results;
 	}
+	
 	public function getTherapyByPatientAndVisit($patient_id, $visit_id) {
 		$entity = null;
 		$query = "SELECT * FROM " . DB_PREFIX . "therapy t WHERE t.patient_id = :patient_id AND visit_id=:visit_id";
@@ -923,6 +932,8 @@ FROM
 		$object->date_birth = $row [0] ['date_birth'];
 		$object->project = $row [0] ['project'];
 		$object->comments = $row [0] ['comments'];
+		$object->role_id = $row [0] ['role_id'];
+		$object->hospital_id = $row [0] ['hospital_id'];
 		return $object;
 	}
 	public function is_user_exist($username, $pass = null) {
@@ -1476,7 +1487,8 @@ VALUE (
 		$stmt->bindValue(':neurotoxicity_yes_no_id', $entity->neurotoxicity_yes_no_id, PDO::PARAM_STR);
 		$stmt->bindValue(':neurotoxicity_level_id', $entity->neurotoxicity_level_id, PDO::PARAM_STR);
 		$stmt->bindValue(':skin_toxicity_yes_no_id', $entity->skin_toxicity_yes_no_id, PDO::PARAM_STR);
-		$stmt->bindValue(':skin_toxicity_level_id', $entity->skin_toxicity_level_id, PDO::PARAM_STR);$stmt->bindValue ( ':user', $entity->user, PDO::PARAM_STR );
+		$stmt->bindValue(':skin_toxicity_level_id', $entity->skin_toxicity_level_id, PDO::PARAM_STR);
+		$stmt->bindValue ( ':user', $entity->user, PDO::PARAM_STR );
 		// echo "<br>".$stmt->queryString . "<br>";
 		try {
 			$stmt->execute ();
