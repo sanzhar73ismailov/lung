@@ -1566,8 +1566,7 @@ VALUE (
 				  `patient_status_id` = :patient_status_id,
 				  `patient_if_died_date` = :patient_if_died_date,
 				  `patient_if_died_cause_id` = :patient_if_died_cause_id,
-				  `patient_if_died_cause_descr` = :patient_if_died_cause_descr,
-				  `user` = :user 
+				  `patient_if_died_cause_descr` = :patient_if_died_cause_descr
 				WHERE 
 				  `id` = :id
 				";
@@ -1635,7 +1634,7 @@ VALUE (
 		$stmt->bindValue(':patient_if_died_date', $entity->patient_if_died_date, PDO::PARAM_STR);
 		$stmt->bindValue(':patient_if_died_cause_id', $entity->patient_if_died_cause_id, PDO::PARAM_STR);
 		$stmt->bindValue(':patient_if_died_cause_descr', $entity->patient_if_died_cause_descr, PDO::PARAM_STR);
-		$stmt->bindValue(':user', $entity->user, PDO::PARAM_STR);
+		//$stmt->bindValue(':user', $entity->user, PDO::PARAM_STR);
 		// echo "<br>".$stmt->queryString . "<br>";
 		try {
 			$stmt->execute ();
