@@ -4,6 +4,7 @@ define('SITE_NAME', "Индивидуальная регистрационная
 ");
 define('DEBUG', "1");
 define('ADMIN_CODE', "lung2018");
+define('ADMIN_CODE_FOR_COOR', "lung2018coor");
 define('ADMIN_EMAIL', "sanzhar73@gmail.com");
 
 

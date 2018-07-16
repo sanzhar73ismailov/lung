@@ -998,7 +998,8 @@ FROM
 		  `sex_id`,
 		  `date_birth`,
 		  `project`,
-		  `comments`
+		  `comments`,
+           role_id
 		  ) 
 		VALUE (
 		  null,
@@ -1010,7 +1011,8 @@ FROM
 		  :sex_id,
 		  :date_birth,
 		  :project,
-		  :comments
+		  :comments,
+          :role_id
 		);";
 		
 		$stmt = $this->pdo->prepare ( $query );
@@ -1023,6 +1025,7 @@ FROM
 		$stmt->bindValue ( ':date_birth', $object->date_birth, PDO::PARAM_STR );
 		$stmt->bindValue ( ':project', $object->project, PDO::PARAM_STR );
 		$stmt->bindValue ( ':comments', $object->comments, PDO::PARAM_STR );
+		$stmt->bindValue ( ':role_id', $object->role_id, PDO::PARAM_STR );
 		// echo "<br>".$stmt->queryString . "<br>";
 		try {
 			$stmt->execute ();
