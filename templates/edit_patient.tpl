@@ -3,7 +3,8 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
-<title>{$title}</title> {include file="js_include.tpl"}
+<title>{$title}</title> 
+{include file="js_include.tpl"}
 <script type="text/javascript">
 
 function dependentElsRequiredOn(instrBase){

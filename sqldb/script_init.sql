@@ -60,6 +60,7 @@ INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',3,'Алматинский ООД, г. Талдыкорган');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',4,'Кызылординский ООД, г. Кзылорда');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',5,'ЮК ООД, г. Шымкент');
+INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('hospital_id',6,'Медицинский центр ЗКГМУ им. М. Оспаова, Актбе');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('sex_id',1,'Мужской');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('sex_id',2,'Женский');
 INSERT INTO lung_dic_val (dic_list_id,value_id,value_name) VALUE ('place_living_id',1,'город');

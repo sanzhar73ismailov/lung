@@ -876,9 +876,9 @@ FROM
 		$entity->urea_before_ct= $this->getNullForObjectFieldIfStringEmpty($request['urea_before_ct']);
 		$entity->urea_before_ct_date= russianDateToMysqlDate ($this->getNullForObjectFieldIfStringEmpty($request['urea_before_ct_date']));
 		$entity->neurotoxicity_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['neurotoxicity_yes_no_id']);
-		$entity->neurotoxicity_level_id= $this->getNullForObjectFieldIfStringEmpty($request['neurotoxicity_level_id']);
+		$entity->neurotoxicity_level_id=$this->getValFromRequest ( $request, 'neurotoxicity_level_id');
 		$entity->skin_toxicity_yes_no_id= $this->getNullForObjectFieldIfStringEmpty($request['skin_toxicity_yes_no_id']);
-		$entity->skin_toxicity_level_id= $this->getNullForObjectFieldIfStringEmpty($request['skin_toxicity_level_id']);
+		$entity->skin_toxicity_level_id= $this->getValFromRequest ( $request, 'skin_toxicity_level_id');
 		$entity->user = $this->user;
 		return $entity;
 	}

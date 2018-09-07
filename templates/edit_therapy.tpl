@@ -3,7 +3,17 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="style.css">
 <title>{$title}</title>
-<script src="jscript/myScript.js"></script>
+{include file="js_include.tpl"}
+<script type="text/javascript">
+function toxicityRequiredOn(toxicityBase){
+	//select токсичности
+	requiredOn(toxicityBase + "_level_id");
+}
+function toxicityRequiredOff(toxicityBase){
+	//select токсичности
+	requiredOff(toxicityBase + "_level_id");
+}
+</script>
 </head>
 <body>
 
@@ -38,10 +48,6 @@
 					{/if}
 					<td style="color: blue;">Пациент</td>
 					<td style="font-size: large; font-weight: bold">{$patient->patient_number}</td>
-					</tr>
-					<tr>
-						<td style="color: blue;">Номер визита</td>
-						<td style="font-size: large; font-weight: bold">{foreach $visit_vals as $item} {if $item->id == $object->visit_id} {$item->value} {/if} {/foreach} </select></td>
 					</tr>
 					<tr class="tr_open_close">
 						<td colspan="2">Химиотерапия</td>
@@ -175,9 +181,12 @@
 
 					<tr>
 						<td class='td_label_form'>ПЭТ-КТ</td>
-						<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="1" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 1} checked {/if}/> Нет <input {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="0" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 0}
-							checked {/if}/> Дата <input type="text" {$readonly} name="instr_petkt_date" id="instr_petkt_date" size="10" value="{if isset($object->instr_petkt_date)}{$object->instr_petkt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> Норма <input type="radio" {$disabled} name="instr_petkt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_petkt_norm_yes_no_id)
-							&& $object->instr_petkt_norm_yes_no_id == 1} checked {/if}/> Патология <input type="radio" {$disabled} name="instr_petkt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_petkt_norm_yes_no_id) && $object->instr_petkt_norm_yes_no_id == 0} checked {/if}/>
+						<td>Да <input {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="1" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 1} checked {/if}/> 
+						   Нет <input {$class_req_input} type="radio" {$disabled} name="instr_petkt_yes_no_id" size="50" value="0" {if isset($object->instr_petkt_yes_no_id) && $object->instr_petkt_yes_no_id == 0}
+							checked {/if}/> Дата <input type="text" {$readonly} name="instr_petkt_date" id="instr_petkt_date" size="10" value="{if isset($object->instr_petkt_date)}{$object->instr_petkt_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> 
+							Норма <input type="radio" {$disabled} name="instr_petkt_norm_yes_no_id" size="50" value="1" {if isset($object->instr_petkt_norm_yes_no_id)
+							&& $object->instr_petkt_norm_yes_no_id == 1} checked {/if}/> 
+							Патология <input type="radio" {$disabled} name="instr_petkt_norm_yes_no_id" size="50" value="0" {if isset($object->instr_petkt_norm_yes_no_id) && $object->instr_petkt_norm_yes_no_id == 0} checked {/if}/>
 						</td>
 					</tr>
 					<tr>
@@ -328,10 +337,10 @@
 					
 					<tr>
 						<td>Нейротоксичность</td>
-						<td>Да <input {$class_req_input} type="radio" {$disabled} name="neurotoxicity_yes_no_id" size="50" value="1" {if isset($object->neurotoxicity_yes_no_id) && $object->neurotoxicity_yes_no_id == 1} checked {/if}/> 
-						Нет <input {$class_req_input} type="radio" {$disabled} name="neurotoxicity_yes_no_id" size="50" value="0" {if isset($object->neurotoxicity_yes_no_id) && $object->neurotoxicity_yes_no_id == 0} checked {/if}/> <br />
+						<td>Да <input onclick="toxicityRequiredOn('neurotoxicity');" {$class_req_input} type="radio" {$disabled} name="neurotoxicity_yes_no_id" size="50" value="1" {if isset($object->neurotoxicity_yes_no_id) && $object->neurotoxicity_yes_no_id == 1} checked {/if}/> 
+						Нет <input onclick="toxicityRequiredOff('neurotoxicity');" {$class_req_input} type="radio" {$disabled} name="neurotoxicity_yes_no_id" size="50" value="0" {if isset($object->neurotoxicity_yes_no_id) && $object->neurotoxicity_yes_no_id == 0} checked {/if}/> <br />
 							Если «да», степень токсичности
-							<select {$class_req_input} {$disabled} name="neurotoxicity_level_id">
+							<select {$disabled} name="neurotoxicity_level_id" id="neurotoxicity_level_id">
 									<option></option> {foreach $neurotoxicity_level_vals as $item}
 									<option {if $item->id == $object->neurotoxicity_level_id} selected="selected" {/if} value="{$item->id}">{$item->value}</option> {/foreach}
 							</select>
@@ -339,10 +348,10 @@
 					</tr>
 					<tr>
 						<td>Кожная токсичность</td>
-						<td>Да <input {$class_req_input} type="radio" {$disabled} name="skin_toxicity_yes_no_id" size="50" value="1" {if isset($object->skin_toxicity_yes_no_id) && $object->skin_toxicity_yes_no_id == 1} checked {/if}/> 
-						Нет <input {$class_req_input} type="radio" {$disabled} name="skin_toxicity_yes_no_id" size="50" value="0" {if isset($object->skin_toxicity_yes_no_id) && $object->skin_toxicity_yes_no_id == 0} checked {/if}/> <br />
+						<td>Да <input onclick="toxicityRequiredOn('skin_toxicity');"  {$class_req_input} type="radio" {$disabled} name="skin_toxicity_yes_no_id" size="50" value="1" {if isset($object->skin_toxicity_yes_no_id) && $object->skin_toxicity_yes_no_id == 1} checked {/if}/> 
+						Нет <input onclick="toxicityRequiredOff('skin_toxicity');"  {$class_req_input} type="radio" {$disabled} name="skin_toxicity_yes_no_id" size="50" value="0" {if isset($object->skin_toxicity_yes_no_id) && $object->skin_toxicity_yes_no_id == 0} checked {/if}/> <br />
 							Если «да», степень токсичности
-							<select {$class_req_input} {$disabled} name="skin_toxicity_level_id">
+							<select {$disabled} name="skin_toxicity_level_id" id="skin_toxicity_level_id">
 									<option></option> {foreach $skin_toxicity_level_vals as $item}
 									<option {if $item->id == $object->skin_toxicity_level_id} selected="selected" {/if} value="{$item->id}">{$item->value}</option> {/foreach}
 							</select>

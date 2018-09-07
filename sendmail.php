@@ -39,6 +39,7 @@ if(!isset($_SESSION["authorized"]) || $_SESSION["authorized"] != 1){
 	
 $smarty->assign('title',$title);
 $smarty->assign('message',$text_message);
+$smarty->assign('email',$to);
 $smarty->display('templates/feedback.tpl');
 
 
