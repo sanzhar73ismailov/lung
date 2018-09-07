@@ -1,3 +1,3 @@
 <div id="footer">
-{$application_name} ver. 18.07.16.01
+{$application_name} ver. 18.09.07.01
 </div>
