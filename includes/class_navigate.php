@@ -224,6 +224,7 @@ class FeedbackNavigate extends AbstractNavigate{
 		}
 		
 	    $this->smartyArray['email']= $email;
+	    $this->smartyArray['email_admin']= ADMIN_EMAIL;
 	    
 	}
 }

@@ -11,10 +11,12 @@
 <div id="content">
 
 <div class="center_title">Обратная связь</div>
-
+<div style="margin: 10px 10%;"><h3>Если возникли проблемы, можете выслать эл. сообщение на эл. адрес {$email_admin}</h3></div>
+{*
 <form method="post" action="sendmail.php"
 	onsubmit="return checkform(this)"><input type="hidden" name="hidd"
 	value="" />
+
 
 <table class="form">
 
@@ -53,7 +55,7 @@
 </table>
 
 </form>
-
+*}
 
 </div>
 
