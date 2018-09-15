@@ -42,6 +42,11 @@ class Patient extends Entity{
 	public $instr_petkt_date;
 	public $instr_petkt_norm_yes_no_id;
 	public $instr_petkt_descr;
+	
+	public $surgical_yes_no_id;
+	public $surgical_date;
+	public $surgical_descr;
+	
 	public $instr_radiotherapy_yes_no_id;
 	public $instr_radiotherapy_type;
 	public $instr_radiotherapy_start_date;

@@ -28,6 +28,9 @@ class Therapy extends Entity{
 	 public $instr_mrt_date;
 	 public $instr_mrt_norm_yes_no_id;
 	 public $instr_mrt_descr;
+	 
+
+	 
 	 public $instr_petkt_yes_no_id;
 	 public $instr_petkt_date;
 	 public $instr_petkt_norm_yes_no_id;

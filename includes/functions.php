@@ -206,6 +206,8 @@ function fill_therapy_form_by_dic($smarty, $dao){
 }
 
 function russianDateToMysqlDate($param){
+	if($param == "")
+		return "";
 	$date = str_replace('/', '-', $param);
 	return date('Y-m-d', strtotime($date));
 }

@@ -7,6 +7,20 @@
 {include file="js_include.tpl"}
 <script type="text/javascript">
 
+function surgicalRequiredOn(instrBase){
+	//дата проведения
+	  requiredOn(instrBase + "_date");
+    //заключение текстареа
+	requiredOn(instrBase + "_descr");
+ }
+ 
+function surgicalRequiredOff(instrBase){
+	//дата проведения
+	  requiredOff(instrBase + "_date");
+   //заключение текстареа
+	requiredOff(instrBase + "_descr");
+ }
+
 function dependentElsRequiredOn(instrBase){
 	//дата проведения
 	  requiredOn(instrBase + "_date");
@@ -306,6 +320,26 @@ function statusDied(e){
 							<td class='td_label_form'>ПЭТ-КТ Заключение</td>
 							<td><textarea {$disabled} rows="3" cols="45" id="instr_petkt_descr" name="instr_petkt_descr">{$object->instr_petkt_descr}</textarea></td>
 						</tr>
+						
+                        <!-- Хирургическое лечение start -->
+                        <tr class="tr_open_close">
+							<td colspan="2">Хирургическое лечение</td>
+						</tr>
+						<tr>
+							<td class='td_label_form'>Хирургическое лечение: да/нет</td>
+							<td>Да <input onclick="surgicalRequiredOn('surgical');" {$class_req_input} type="radio" {$disabled} name="surgical_yes_no_id" size="50" value="1" {if isset($object->surgical_yes_no_id) && $object->surgical_yes_no_id == 1} checked {/if}/>
+							Нет<input onclick="surgicalRequiredOff('surgical');" {$class_req_input} type="radio" {$disabled} name="surgical_yes_no_id" size="50" value="0" {if isset($object->surgical_yes_no_id) && $object->surgical_yes_no_id == 0} checked {/if}/> 
+							Дата <input type="text" {$readonly} name="surgical_date" id="surgical_date" size="10" value="{if isset($object->surgical_date)}{$object->surgical_date|date_format:'%d/%m/%Y'}{else}{/if}" onblur="IsObjDate(this);" onkeyup="TempDt(event,this);" /> 
+							</td>
+						</tr>
+						<tr>
+							<td class='td_label_form'>Вид и объем оперативного вмешательства</td>
+							<td><textarea {$disabled} rows="3" cols="45" id="surgical_descr" name="surgical_descr">{$object->surgical_descr}</textarea></td>
+						</tr>
+						<!-- Хирургическое лечение finish -->
+
+
+
 
 						<tr class="tr_open_close">
 							<td colspan="2">Лучевая терапия</td>

@@ -254,6 +254,9 @@ class Dao {
 		$entity->instr_mrt_date = $row ['instr_mrt_date'];
 		$entity->instr_mrt_norm_yes_no_id = $row ['instr_mrt_norm_yes_no_id'];
 		$entity->instr_mrt_descr = $row ['instr_mrt_descr'];
+		$entity->surgical_yes_no_id = $row ['surgical_yes_no_id'];
+		$entity->surgical_date = $row ['surgical_date'];
+		$entity->surgical_descr = $row ['surgical_descr'];
 		$entity->instr_petkt_yes_no_id = $row ['instr_petkt_yes_no_id'];
 		$entity->instr_petkt_date = $row ['instr_petkt_date'];
 		$entity->instr_petkt_norm_yes_no_id = $row ['instr_petkt_norm_yes_no_id'];
@@ -753,6 +756,11 @@ FROM
 		$entity->instr_petkt_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_petkt_date'] ) );
 		$entity->instr_petkt_norm_yes_no_id = $this->getValFromRequest ( $request, 'instr_petkt_norm_yes_no_id' );
 		$entity->instr_petkt_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_petkt_descr'] );
+		
+		$entity->surgical_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['surgical_yes_no_id'] );
+		$entity->surgical_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['surgical_date'] ) );
+		$entity->surgical_descr = $this->getNullForObjectFieldIfStringEmpty ( $request ['surgical_descr'] );
+		
 		$entity->instr_radiotherapy_yes_no_id = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_yes_no_id'] );
 		$entity->instr_radiotherapy_type = $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_type'] );
 		$entity->instr_radiotherapy_start_date = russianDateToMysqlDate ( $this->getNullForObjectFieldIfStringEmpty ( $request ['instr_radiotherapy_start_date'] ) );
@@ -1114,6 +1122,9 @@ FROM
   `instr_petkt_date`,
   `instr_petkt_norm_yes_no_id`,
   `instr_petkt_descr`,
+  `surgical_yes_no_id`,
+  `surgical_date`,
+  `surgical_descr`,
   `instr_radiotherapy_yes_no_id`,
   `instr_radiotherapy_type`,
   `instr_radiotherapy_start_date`,
@@ -1179,6 +1190,9 @@ VALUE (
   :instr_petkt_date,
   :instr_petkt_norm_yes_no_id,
   :instr_petkt_descr,
+  :surgical_yes_no_id,
+  :surgical_date,
+  :surgical_descr,
   :instr_radiotherapy_yes_no_id,
   :instr_radiotherapy_type,
   :instr_radiotherapy_start_date,
@@ -1244,6 +1258,11 @@ VALUE (
 		$stmt->bindValue ( ':instr_petkt_date', $entity->instr_petkt_date, PDO::PARAM_STR );
 		$stmt->bindValue ( ':instr_petkt_norm_yes_no_id', $entity->instr_petkt_norm_yes_no_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':instr_petkt_descr', $entity->instr_petkt_descr, PDO::PARAM_STR );
+		
+		$stmt->bindValue ( ':surgical_yes_no_id', $entity->surgical_yes_no_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':surgical_date', $entity->surgical_date, PDO::PARAM_STR );
+		$stmt->bindValue ( ':surgical_descr', $entity->surgical_descr, PDO::PARAM_STR );
+		
 		$stmt->bindValue ( ':instr_radiotherapy_yes_no_id', $entity->instr_radiotherapy_yes_no_id, PDO::PARAM_STR );
 		$stmt->bindValue ( ':instr_radiotherapy_type', $entity->instr_radiotherapy_type, PDO::PARAM_STR );
 		$stmt->bindValue ( ':instr_radiotherapy_start_date', $entity->instr_radiotherapy_start_date, PDO::PARAM_STR );
@@ -1549,6 +1568,9 @@ VALUE (
 				  `instr_petkt_date` = :instr_petkt_date,
 				  `instr_petkt_norm_yes_no_id` = :instr_petkt_norm_yes_no_id,
 				  `instr_petkt_descr` = :instr_petkt_descr,
+				  `surgical_yes_no_id` = :surgical_yes_no_id,
+				  `surgical_date` = :surgical_date,
+				  `surgical_descr` = :surgical_descr,
 				  `instr_radiotherapy_yes_no_id` = :instr_radiotherapy_yes_no_id,
 				  `instr_radiotherapy_type` = :instr_radiotherapy_type,
 				  `instr_radiotherapy_start_date` = :instr_radiotherapy_start_date,
@@ -1616,6 +1638,11 @@ VALUE (
 		$stmt->bindValue(':instr_petkt_date', $entity->instr_petkt_date, PDO::PARAM_STR);
 		$stmt->bindValue(':instr_petkt_norm_yes_no_id', $entity->instr_petkt_norm_yes_no_id, PDO::PARAM_STR);
 		$stmt->bindValue(':instr_petkt_descr', $entity->instr_petkt_descr, PDO::PARAM_STR);
+		
+		$stmt->bindValue ( ':surgical_yes_no_id', $entity->surgical_yes_no_id, PDO::PARAM_STR );
+		$stmt->bindValue ( ':surgical_date', $entity->surgical_date, PDO::PARAM_STR );
+		$stmt->bindValue ( ':surgical_descr', $entity->surgical_descr, PDO::PARAM_STR );
+		
 		$stmt->bindValue(':instr_radiotherapy_yes_no_id', $entity->instr_radiotherapy_yes_no_id, PDO::PARAM_STR);
 		$stmt->bindValue(':instr_radiotherapy_type', $entity->instr_radiotherapy_type, PDO::PARAM_STR);
 		$stmt->bindValue(':instr_radiotherapy_start_date', $entity->instr_radiotherapy_start_date, PDO::PARAM_STR);

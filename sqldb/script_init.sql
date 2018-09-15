@@ -1,3 +1,17 @@
+ALTER TABLE lung_patient 
+add column `surgical_yes_no_id` INTEGER(11) NOT NULL DEFAULT '-1' COMMENT 'Хирургическое лечение: да/нет' after instr_petkt_descr,
+add column `surgical_date` DATE DEFAULT NULL COMMENT 'Хирургическое лечение: дата' after surgical_yes_no_id,
+add column `surgical_descr` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL 
+COMMENT 'Хирургическое лечение: Вид и объем оперативного вмешательства' after surgical_date;
+
+`surgical_yes_no_id`,
+`surgical_date`,
+`surgical_descr`,
+
+surgical_yes_no_id,
+surgical_date,
+surgical_descr,
+
 
 ALTER TABLE `lung_therapy` ADD INDEX `visit_id` (`visit_id`);
 ALTER TABLE `lung_therapy` ADD UNIQUE `patient_id` (`patient_id`, `visit_id`);
