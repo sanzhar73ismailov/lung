@@ -4,14 +4,6 @@ add column `surgical_date` DATE DEFAULT NULL COMMENT 'Хирургическое
 add column `surgical_descr` VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL 
 COMMENT 'Хирургическое лечение: Вид и объем оперативного вмешательства' after surgical_date;
 
-`surgical_yes_no_id`,
-`surgical_date`,
-`surgical_descr`,
-
-surgical_yes_no_id,
-surgical_date,
-surgical_descr,
-
 
 ALTER TABLE `lung_therapy` ADD INDEX `visit_id` (`visit_id`);
 ALTER TABLE `lung_therapy` ADD UNIQUE `patient_id` (`patient_id`, `visit_id`);
