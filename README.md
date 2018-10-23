@@ -1,7 +1,6 @@
 # lung
 Проект по немелоклеточному рл
 
-
 ##Версия ведется в version templates/footer.tpl файле
 Формат: `yy.mm.dd.idx`
 `yy`  - год, до 2х знаков
