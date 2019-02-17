@@ -7,7 +7,9 @@ GET DATA /TYPE=XLSX
 DATASET NAME PatientData WINDOW=FRONT.
 
 DATASET ACTIVATE PatientData.
+STRING  diag_cancer_estab_month_year (A8).
 COMPUTE years=DATEDIFF(insert_date,date_birth,'year').
+COMPUTE diag_cancer_estab_month_year=CONCAT(STRING(XDATE.MONTH(diag_cancer_estab_date),F2.0),"-",STRING(XDATE.YEAR(diag_cancer_estab_date),F4.0)).
 EXECUTE.
 
 RECODE years (-1=-1) (0 thru 19=1) (20 thru 29=2) (30 thru 39=3) (40 thru 49=4) (50 thru 59=5) (60 thru 69=6) 
@@ -15,6 +17,7 @@ RECODE years (-1=-1) (0 thru 19=1) (20 thru 29=2) (30 thru 39=3) (40 thru 49=4) 
 EXECUTE.
 
 VARIABLE LABELS
+diag_cancer_estab_month_year "ƒата постановки диагноза рак (мес€ц, год)"
 id "ID"
 patient_number "Ќомер пациента (уникальный в пределах исследовани€)"
 hospital_id "ћед. центра откуда материл (справочник)"
