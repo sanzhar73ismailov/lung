@@ -40,12 +40,18 @@ OUTPUT CLOSE NAME =report_output.
 
 * Частотный анализ.
 * <<<<<<<<<<<BLOCK START.
-SORT CASES BY id(A).
+
 FILE HANDLE xls_file /NAME='reportdir\02_частоты.xls'.
 OUTPUT NEW NAME =report_output.
+
+ * SORT CASES BY id(diag_cancer_estab_date).
+ * FREQUENCIES VARIABLES=
+diag_cancer_estab_month_year.
+
+SORT CASES BY id(A).
 FREQUENCIES VARIABLES=
 social_status_id
-diag_cancer_estab_month_year
+diag_cancer_estab_year
 cytologic_conclusion
 diag_cancer_histotype
 diag_cancer_degree_malignancy_id
@@ -94,7 +100,7 @@ FILE HANDLE xls_file /NAME='reportdir\03_частоты_по_полу.xls'.
 OUTPUT NEW NAME =report_output.
 FREQUENCIES VARIABLES=
 social_status_id
-diag_cancer_estab_month_year
+diag_cancer_estab_year
 cytologic_conclusion
 diag_cancer_histotype
 diag_cancer_degree_malignancy_id
