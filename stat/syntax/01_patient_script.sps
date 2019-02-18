@@ -19,6 +19,7 @@ RECODE years (-1=-1) (0 thru 19=1) (20 thru 29=2) (30 thru 39=3) (40 thru 49=4) 
 EXECUTE.
 
 VARIABLE LABELS
+years "Возраст, лет"
 diag_cancer_estab_year "Дата постановки диагноза рак (год)"
 id "ID"
 patient_number "Номер пациента (уникальный в пределах исследования)"
@@ -112,33 +113,39 @@ instr_radiotherapy_petkt_yes_no_id
 instr_radiotherapy_petkt_norm_yes_no_id
 1 "Да"
 0 "Нет"
+-1 "Нет данных"
 /diag_cancer_clin_stage_id
 1 "I"
 2 "II"
 3 "III"
 4 "IV"
+-1 "Нет данных"
 /diag_cancer_degree_malignancy_id
 1 "G1 – высокая степень дифференцировки"
 2 "G2 – средняя степень дифференцировки"
 3 "G3 – низкая степень дифференцировки"
 4 "G4 – недифференцированная опухоль"
 5 "Gx – степень дифференцировки установить нельзя"
+-1 "Нет данных"
 /diag_cancer_ecog_status_id 
 1 "0"
-/diag_cancer_ecog_status_id 2 "1"
+2 "1"
 3 "2"
 4 "3"
 5 "неизвестно"
+-1 "Нет данных"
 /diag_cancer_tnm_stage_m_id
 1 "M0"
 2 "M1"
 3 "Mx"
+-1 "Нет данных"
 /diag_cancer_tnm_stage_n_id
 1 "N0"
 2 "N1"
 3 "N2"
 4 "N3"
 5 "Nx"
+-1 "Нет данных"
 /diag_cancer_tnm_stage_t_id
 1 "T0"
 2 "Tis"
@@ -147,6 +154,7 @@ instr_radiotherapy_petkt_norm_yes_no_id
 5 "T3"
 6 "T4"
 7 "Tx"
+-1 "Нет данных"
 /hospital_id
 1 "Алматинский ОЦ"
 2 "ВК ООД, г. Усть-Каменогорск"
@@ -154,30 +162,37 @@ instr_radiotherapy_petkt_norm_yes_no_id
 4 "Кызылординский ООД, г. Кзылорда"
 5 "ЮК ООД, г. Шымкент"
 6 "Медицинский центр ЗКГМУ им. М. Оспанова, Актобе"
+-1 "Нет данных"
 /immunohistochemical_study_id
 0 "нет"
 1 "да"
 2 "экспрессия EGFR"
 3 "экспрессия ALK"
+-1 "Нет данных"
 /patient_if_died_cause_id
 1 "прогрессирование основного заболевания"
 2 "осложнения противоопухолевой терапии "
 3 "другие причины"
+-1 "Нет данных"
 /patient_status_id
 0 "умер"
 1 "жив"
 3 "неизвестно"
+-1 "Нет данных"
 /place_living_id
 1 "город"
 2 "село"
+-1 "Нет данных"
 /sex_id
 1 "Мужской"
 2 "Женский"
+-1 "Нет данных"
 /social_status_id
 1 "Студент"
 2 "Работает"
 3 "Пенсионер"
-4 "Другое".
+4 "Другое"
+-1 "Нет данных".
 
 MISSING VALUES
 inclusion_criteria_years_more18_yes_no_id

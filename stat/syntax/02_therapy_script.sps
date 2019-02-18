@@ -9,7 +9,14 @@ DATASET NAME TherapyData WINDOW=FRONT.
 DATASET ACTIVATE TherapyData.
 EXECUTE.
 
+COMPUTE chmt_days=DATEDIFF(chmt_date_finish,chmt_date_start,'days').
+*COMPUTE d=DATEDIFF(v1,v2,'days').
+RECODE chmt_days (Lowest thru -1=-1).
+EXECUTE.
+
+
 VARIABLE LABELS
+chmt_days "Химиотерапия, длительность (дней)"
 id "ID"
 patient_id "Пациент"
 visit_id "Номер визита"
@@ -81,16 +88,52 @@ user "Пользователь"
 insert_date "Дата вставки".
 
 VALUE LABELS
+chmt_karboplatin_yes_no_id
+chmt_cisplatin_yes_no_id
+chmt_ciklofosfan_yes_no_id
+chmt_paklitaksel_yes_no_id
+chmt_doksorubicin_yes_no_id
+chmt_topotekan_yes_no_id
+chmt_gemcitabin_yes_no_id
+chmt_vinorelbin_yes_no_id
+chmt_irinotekan_yes_no_id
+chmt_jetopozid_yes_no_id
+chmt_jepirubicin_yes_no_id
+chmt_docetaksel_yes_no_id
+chmt_oksaliplatin_yes_no_id
+chmt_other_yes_no_id
+instr_kt_yes_no_id
+instr_kt_norm_yes_no_id
+instr_mrt_yes_no_id
+instr_mrt_norm_yes_no_id
+instr_petkt_yes_no_id
+instr_petkt_norm_yes_no_id
+targeted_therapy_yes_no_id
+targeted_therapy_erlotinib_yes_no_id
+targeted_therapy_gefitinib_yes_no_id
+targeted_therapy_cryotinib_yes_no_id
+targeted_therapy_nivolumab_yes_no_id
+targeted_therapy_other_yes_no_id
+side_effects_yes_no_id
+neurotoxicity_yes_no_id
+skin_toxicity_yes_no_id
+1 "Да"
+0 "Нет"
+-1 "Нет данных"
 /neurotoxicity_level_id
+0 "Токсичности нет"
 1 "1 степень токсичности"
 2 "2 степень токсичности"
 3 "3 степень токсичности"
 4 "4 степень токсичности"
+-1 "Нет данных"
 /skin_toxicity_level_id
+0 "Токсичности нет"
 1 "1 степень токсичности"
 2 "2 степень токсичности"
 3 "3 степень токсичности"
-4 "4 степень токсичности".
+4 "4 степень токсичности"
+-1 "Нет данных".
 
 MISSING VALUES
 patient_id
@@ -126,4 +169,5 @@ neurotoxicity_yes_no_id
 neurotoxicity_level_id
 skin_toxicity_yes_no_id
 skin_toxicity_level_id
-(-1) .
+chmt_days
+(-1).
