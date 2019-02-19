@@ -1,6 +1,6 @@
 CD 'C:\OSPanel\domains\localhost\lung\stat'.
 
- * INSERT FILE ='syntax\01_patient_script.sps'.
+INSERT FILE ='syntax\01_patient_script.sps'.
 INSERT FILE ='syntax\02_therapy_script.sps'.
 
 
@@ -40,12 +40,14 @@ OUTPUT CLOSE NAME =report_output.
 
 * Частотный анализ.
 * <<<<<<<<<<<BLOCK START.
+DATASET ACTIVATE PatientData.
 INSERT FILE ='syntax\03_patient_freq_script.sps'.
 * >>>>>>>>>>>>>>BLOCK END.
 
 * Описательная статистика(Колич. показатели)- терапия.
+DATASET ACTIVATE TherapyData.
 * <<<<<<<<<<<BLOCK START.
-FILE HANDLE xls_file /NAME='reportdir\04_терапия_опис_стат_кол_показатели_(анал_крови).xls'.
+FILE HANDLE xls_file /NAME='reportdir\03_терапия_опис_стат_кол_показатели_(анал_крови).xls'.
 OUTPUT NEW NAME =report_output.
 *Без разделения на пол.
 DESCRIPTIVES VARIABLES=hb_before_ct erythrocytes_before_ct leuc_before_ct tromb_before_ct 

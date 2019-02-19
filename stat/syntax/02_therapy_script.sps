@@ -12,6 +12,9 @@ EXECUTE.
 COMPUTE chmt_days=DATEDIFF(chmt_date_finish,chmt_date_start,'days').
 *COMPUTE d=DATEDIFF(v1,v2,'days').
 RECODE chmt_days (Lowest thru -1=-1).
+formats hb_before_ct erythrocytes_before_ct leuc_before_ct tromb_before_ct 
+    neutr_before_ct gen_prot_before_ct ast_before_ct alt_before_ct bilirubin_before_ct creat_before_ct 
+    urea_before_ct(f4.0).
 EXECUTE.
 
 

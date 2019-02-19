@@ -1,4 +1,4 @@
-FILE HANDLE xls_file /NAME='reportdir\05_терапия_частоты.xls'.
+FILE HANDLE xls_file /NAME='reportdir\04_терапия_частоты.xls'.
 OUTPUT NEW NAME =report_output.
 SORT CASES BY id(A).
 FREQUENCIES VARIABLES=
