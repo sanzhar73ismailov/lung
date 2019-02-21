@@ -15,6 +15,9 @@ if(isset($_REQUEST["entity"])){
 	$entity = $_REQUEST["entity"];
 	$smarty->assign('entity',$entity);
 	$do = isset($_REQUEST["do"])?  $_REQUEST["do"] : "view" ;
+	if($do == "edit" and READ_MODE == 1){
+		$do = "view";
+	}
 	$id =   isset($_REQUEST["id"])?  (int) $_REQUEST["id"] : null;
 	switch ($do){
 		case "view":
