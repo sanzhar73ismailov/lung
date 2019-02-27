@@ -19,6 +19,7 @@ EXECUTE.
 
 
 VARIABLE LABELS
+hospital_id "Мед. центр"
 chmt_days "Химиотерапия, длительность (дней)"
 id "ID"
 patient_id "Пациент"
@@ -136,7 +137,14 @@ skin_toxicity_yes_no_id
 2 "2 степень токсичности"
 3 "3 степень токсичности"
 4 "4 степень токсичности"
--1 "Нет данных".
+-1 "Нет данных"
+/hospital_id
+1 "Алматинский ОЦ"
+2 "ВК ООД, г. Усть-Каменогорск"
+3 "ООД, г. Тараз"
+4 "Кызылординский ООД, г. Кзылорда"
+5 "ЮК ООД, г. Шымкент"
+6 "Медицинский центр ЗКГМУ им. М. Оспанова, Актобе".
 
 MISSING VALUES
 patient_id
@@ -173,4 +181,5 @@ neurotoxicity_level_id
 skin_toxicity_yes_no_id
 skin_toxicity_level_id
 chmt_days
+hospital_id
 (-1).

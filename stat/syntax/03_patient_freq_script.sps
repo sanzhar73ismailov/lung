@@ -1,6 +1,4 @@
-FILE HANDLE xls_file /NAME='reportdir\02_пациенты_частоты.xls'.
 OUTPUT NEW NAME =report_output.
-SORT CASES BY id(A).
 FREQUENCIES VARIABLES=
 social_status_id
 diag_cancer_estab_year

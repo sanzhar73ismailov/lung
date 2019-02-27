@@ -1,6 +1,4 @@
-FILE HANDLE xls_file /NAME='reportdir\04_терапия_частоты.xls'.
 OUTPUT NEW NAME =report_output.
-SORT CASES BY id(A).
 FREQUENCIES VARIABLES=
 visit_id
 chmt_karboplatin_yes_no_id

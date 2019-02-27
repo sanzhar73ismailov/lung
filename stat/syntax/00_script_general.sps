@@ -7,74 +7,97 @@ INSERT FILE ='syntax\02_therapy_script.sps'.
 *-- DESCRIPTIVES VARIABLES=years
 
 DATASET ACTIVATE PatientData.
+SPLIT FILE OFF.
 * Описательная статистика - возраст.
 * <<<<<<<<<<<BLOCK START.
 FILE HANDLE xls_file /NAME='reportdir\01_пациенты_опис_стат_кол_показатели_(возраст).xls'.
-OUTPUT NEW NAME =report_output.
-*Без разделения на пол.
-DESCRIPTIVES VARIABLES=years
-  /STATISTICS=MEAN STDDEV MIN MAX SEMEAN.
-NPAR TESTS
-  /K-S(NORMAL)=years
-  /MISSING ANALYSIS.
+INSERT FILE ='syntax\02a_patient_quant_script.sps'.
+* >>>>>>>>>>>>>>BLOCK END.
 
-*С разделением на пол.
-SORT CASES  BY sex_id.
-SPLIT FILE LAYERED BY sex_id.
-
-DESCRIPTIVES VARIABLES=years
-  /STATISTICS=MEAN STDDEV MIN MAX SEMEAN.
-NPAR TESTS
-  /K-S(NORMAL)=years
-  /MISSING ANALYSIS.
-*Снимаем фильтр.
+DATASET ACTIVATE PatientData.
 SPLIT FILE OFF.
-
-OUTPUT EXPORT
-  /CONTENTS EXPORT=VISIBLE  LAYERS=PRINTSETTING  MODELVIEWS=PRINTSETTING
-  /XLS  DOCUMENTFILE=xls_file
-     OPERATION=CREATEFILE
-     LOCATION=LASTCOLUMN  NOTESCAPTIONS=YES.
-OUTPUT CLOSE NAME =report_output.
+* Описательная статистика - возраст по регионам.
+* <<<<<<<<<<<BLOCK START.
+SORT CASES  BY hospital_id.
+SPLIT FILE LAYERED BY hospital_id.
+FILE HANDLE xls_file /NAME='reportdir\01_пациенты_опис_стат_кол_показатели_(возраст)_по_регионам.xls'.
+INSERT FILE ='syntax\02a_patient_quant_script.sps'.
+SPLIT FILE OFF.
 * >>>>>>>>>>>>>>BLOCK END.
 
 * Частотный анализ.
 * <<<<<<<<<<<BLOCK START.
 DATASET ACTIVATE PatientData.
+SPLIT FILE OFF.
+EXECUTE.
+FILE HANDLE xls_file /NAME='reportdir\02_пациенты_частоты.xls'.
 INSERT FILE ='syntax\03_patient_freq_script.sps'.
+*Снимаем фильтр.
+SPLIT FILE OFF.
 * >>>>>>>>>>>>>>BLOCK END.
 
+* Частотный анализ по регионам.
+* <<<<<<<<<<<BLOCK START.
+DATASET ACTIVATE PatientData.
+FILE HANDLE xls_file /NAME='reportdir\02_пациенты_частоты_по_регионам.xls'.
+*С разделением по мед. центрам.
+SORT CASES  BY hospital_id.
+SPLIT FILE LAYERED BY hospital_id.
+EXECUTE.
+INSERT FILE ='syntax\03_patient_freq_script.sps'.
+SPLIT FILE OFF.
+* >>>>>>>>>>>>>>BLOCK END.
+
+
+* <<<<<<<<<<<BLOCK START.
 * Описательная статистика(Колич. показатели)- терапия.
 DATASET ACTIVATE TherapyData.
-* <<<<<<<<<<<BLOCK START.
+SPLIT FILE OFF.
 FILE HANDLE xls_file /NAME='reportdir\03_терапия_опис_стат_кол_показатели_(анал_крови).xls'.
-OUTPUT NEW NAME =report_output.
-*Без разделения на пол.
-DESCRIPTIVES VARIABLES=hb_before_ct erythrocytes_before_ct leuc_before_ct tromb_before_ct 
-    neutr_before_ct gen_prot_before_ct ast_before_ct alt_before_ct bilirubin_before_ct creat_before_ct 
-    urea_before_ct
-  /STATISTICS=MEAN STDDEV MIN MAX SEMEAN.
-NPAR TESTS
-  /K-S(NORMAL)=hb_before_ct erythrocytes_before_ct leuc_before_ct tromb_before_ct 
-    neutr_before_ct gen_prot_before_ct ast_before_ct alt_before_ct bilirubin_before_ct creat_before_ct 
-    urea_before_ct
-  /MISSING ANALYSIS.
-
-OUTPUT EXPORT
-  /CONTENTS EXPORT=VISIBLE  LAYERS=PRINTSETTING  MODELVIEWS=PRINTSETTING
-  /XLS  DOCUMENTFILE=xls_file
-     OPERATION=CREATEFILE
-     LOCATION=LASTCOLUMN  NOTESCAPTIONS=YES.
-OUTPUT CLOSE NAME =report_output.
+INSERT FILE ='syntax\04_therapy_quant_script.sps'.
+SPLIT FILE OFF.
 * >>>>>>>>>>>>>>BLOCK END.
 
+* <<<<<<<<<<<BLOCK START.
+* Описательная статистика(Колич. показатели)- терапия.
+DATASET ACTIVATE TherapyData.
+SPLIT FILE OFF.
+*С разделением по мед. центрам.
+SORT CASES  BY hospital_id.
+SPLIT FILE LAYERED BY hospital_id.
+EXECUTE.
+FILE HANDLE xls_file /NAME='reportdir\03_терапия_опис_стат_кол_показатели_(анал_крови)_по_регионам.xls'.
+INSERT FILE ='syntax\04_therapy_quant_script.sps'.
+SPLIT FILE OFF.
+* >>>>>>>>>>>>>>BLOCK END.
 
 
 * Частотный анализ (терапия).
 * <<<<<<<<<<<BLOCK START.
 DATASET ACTIVATE TherapyData.
+FILE HANDLE xls_file /NAME='reportdir\04_терапия_частоты.xls'.
+*Снимаем фильтр.
+SPLIT FILE OFF.
 INSERT FILE ='syntax\05_therapy_freq_script.sps'.
 * >>>>>>>>>>>>>>BLOCK END.
+
+
+* Частотный анализ (терапия), разделение по регионам.
+* <<<<<<<<<<<BLOCK START.
+DATASET ACTIVATE TherapyData.
+FILE HANDLE xls_file /NAME='reportdir\04_терапия_частоты_по_регионам.xls'.
+*Снимаем фильтр.
+SPLIT FILE OFF.
+*С разделением по мед. центрам.
+SORT CASES  BY hospital_id.
+SPLIT FILE LAYERED BY hospital_id.
+INSERT FILE ='syntax\05_therapy_freq_script.sps'.
+SPLIT FILE OFF.
+* >>>>>>>>>>>>>>BLOCK END.
+
+
+
+
 
 
 
